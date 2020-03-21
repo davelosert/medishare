@@ -15,10 +15,10 @@
         class="flex-column w-100 h-100 align-items-stretch justify-content-end"
         no-gutters>
         <b-col class="flex-grow-0">
-          <b-button class="w-100 Rectangle-CTA">Ich suche Materialien</b-button>
+          <b-button class="w-100 Rectangle Rectangle-CTA">Ich suche Materialien</b-button>
         </b-col>
         <b-col class="ms-mt-16 flex-grow-0">
-          <b-button class="w-100 Rectangle-Default">Ich kann Materialien teilen</b-button>
+          <b-button class="w-100 Rectangle Rectangle-Default">Ich kann Materialien teilen</b-button>
         </b-col>
       </b-row>
     </b-col>

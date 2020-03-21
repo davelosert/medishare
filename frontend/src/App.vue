@@ -51,17 +51,19 @@ body, html, #app {
 
 /* ZEPLIN CSS */
 
+.Rectangle {
+  border-radius: 8px !important;
+  border: solid 2px #17a48b !important;
+}
+
 .Rectangle-CTA {
-  border-radius: 8px;
-  background-color: #17a48b;
-  color: #fff;
+  background-color: #17a48b !important;
+  color: #fff !important;
 }
 
 .Rectangle-Default {
-  border-radius: 8px;
-  border: solid 2px #17a48b;
-  color: #17a48b;
-  background-color: #fff;
+  color: #17a48b !important;
+  background-color: #fff !important;
 }
 
 </style>
