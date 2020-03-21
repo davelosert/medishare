@@ -19,7 +19,7 @@
       <b-button class="w-100" 
       :disabled="selectedItems.length === 0"
       :class="nextButtonClass" 
-      @click="navToMaterialSearch">Weiter</b-button>
+      @click="next">Weiter</b-button>
     </b-col>
   </b-row>
 </template>
@@ -66,6 +66,9 @@ export default {
       } else {
         this.selectedItems.push(categoryId)
       }
+    },
+    next () {
+      this.$store.dispatch('categories/set', this.selectedItems)
     }
   }
 }
