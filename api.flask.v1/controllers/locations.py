@@ -7,34 +7,19 @@ from cerberus import Validator
 class LocationAPI(MethodView):
     def get(self, id):
         if id is None:
-            output = []
-            for l in Location.query.all():
-                loc_data = {}
-                loc_data['id'] = l.id
-                loc_data['zip'] = l.zip
-                loc_data['text'] = l.text
-                output.append(loc_data)
-            return jsonify(output)
+            return jsonify([l.serialize for l in Location.query.all()])
         else:
             location = Location.query.filter_by(id=id).one_or_none()
             if not location:
                 return jsonify({'message' : 'Location not found'}), 404 
 
-            loc_data = {}
-            loc_data['id'] = location.id
-            loc_data['zip'] = location.zip
-            loc_data['text'] = location.text
-
-            return jsonify(loc_data)
+            return jsonify(location.serialize)
 
     def post(self):
-        input_shema = Validator({'zip': {'type': 'string'}, 'text': {'type': 'string'}})
-        data = request.get_json()
-
-        if not input_shema.validate(data):
+        new_location = Location.fromJson(request.get_json())
+        if new_location is None:
             return jsonify({'message' : 'Location zip and/or title missing'}), 400
 
-        new_location = Location(zip=data['zip'], text=data['text'])
         db.session.add(new_location)
         db.session.commit()
 

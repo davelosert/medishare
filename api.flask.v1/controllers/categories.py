@@ -7,33 +7,18 @@ from cerberus import Validator
 class CategoryAPI(MethodView):
     def get(self, id):
         if id is None:
-            output = []
-            for cat in Category.query.all():
-                cat_data = {}
-                cat_data['id'] = cat.id
-                cat_data['text'] = cat.text
-                output.append(cat_data)
-            return jsonify(output)
+            return jsonify([c.serialize for c in Category.query.all()])
         else:
             category = Category.query.filter_by(id=id).one_or_none()
             if not category:
                 return jsonify({'message' : 'Category not found'}), 404 
-
-            cat_data = {}
-            cat_data['id'] = category.id
-            cat_data['text'] = category.text
-
-            return jsonify(cat_data)
+            return jsonify(category.serialize)
 
     def post(self):
-
-        input_shema = Validator({'text': {'type': 'string'}})
-        data = request.get_json()
-
-        if not input_shema.validate(data):
+        new_category = Category.fromJson(request.get_json())
+        if new_category is None:
             return jsonify({'message' : 'Category title missing'}), 400
 
-        new_category = Category(text=data['text'])
         db.session.add(new_category)
         db.session.commit()
 
