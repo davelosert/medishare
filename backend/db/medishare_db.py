@@ -8,9 +8,12 @@ logger = logging.getLogger('module medishare_db')
 logger.setLevel(logging.DEBUG)
 
 config = {
-    'user': os.getenv('MYSQL_USER'),
-    'password': os.getenv('MYSQL_PASSWORD'),
-    'host': os.getenv('MYSQL_HOST'),
+#    'user': os.getenv('MYSQL_USER'),
+#    'password': os.getenv('MYSQL_PASSWORD'),
+#    'host': os.getenv('MYSQL_HOST'),
+    'user': 'medishare',
+    'password': 'WirvsVirus.MediShare',
+    'host': 'localhost',
     'database': 'medishare'
 }
 
@@ -59,7 +62,7 @@ except mysql.connector.Error as err:
         logger.error("Database {} created successfully.".format(config['database']), err)
         cnx.database = config['database']
     else:
-        logger.error('an error has occurred! errormessage:' ,err)
+        logger.error('an error has occurred! errormessage:', err)
         exit(1)
 
 for table_name in medishare_tables.TABLES:

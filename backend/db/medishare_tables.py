@@ -1,6 +1,6 @@
 TABLES = {}
 TABLES['users'] = (
-    "CREATE TABLE `market_participients` ("
+    "CREATE TABLE `users` ("
     "  `user_id` int(11) NOT NULL AUTO_INCREMENT,"
     "  `lastname` varchar(50) NOT NULL,"
     "  `firstname` varchar(50) NOT NULL,"
@@ -42,7 +42,7 @@ TABLES['advertisement_categories'] = (
     "  PRIMARY KEY (`advertisement_category_id`)"
     ") ENGINE=InnoDB")
 TABLES['advertisement_status'] = (
-    "CREATE TABLE `cot_data` ("
+    "CREATE TABLE `advertisement_status` ("
     "  `advertisement_status_id` int(11) NOT NULL AUTO_INCREMENT,"
     "  `advertisement_status_name` int(11) NOT NULL,"
     "  PRIMARY KEY (`advertisement_status_id`)"
