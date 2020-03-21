@@ -41,9 +41,22 @@ export default {
         id: 4,
         name: 'Kategorie 4'
       },{
-        id: 4,
+        id: 5,
         name: 'Kategorie 5'
       }]
+    }
+  },
+  methods: {
+    onSelection(categoryId) {
+      const idx = this.selectedItems.indexOf(categoryId)
+      
+      if (idx > -1) {
+        this.selectedItems.splice(idx, 1)
+      } else {
+        this.selectedItems.push(categoryId)
+      }
+
+      console.log(this.selectedItems)
     }
   }
 }
