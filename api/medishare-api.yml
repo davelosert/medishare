@@ -1,8 +1,7 @@
-
 openapi: "3.0.0"
 info:
   version: 1.0.0
-  title: Swagger Petstore
+  title: WirVsVirus Hackathon Medishare API
   license:
     name: MIT
 servers:
@@ -22,6 +21,8 @@ paths:
     get:
       summary: Get all current searches order by how close they are
       operationId: listItemRequests
+      tags:
+        - ItemRequest
       parameters:
         - name: limit
           in: query
@@ -42,12 +43,6 @@ paths:
             application/json:    
               schema:
                 $ref: "#/components/schemas/ItemRequests"
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
     post:
       summary: Create a new Item-Request
       operationId: createItemRequest
@@ -56,12 +51,6 @@ paths:
       responses:
         '201':
           description: Null response
-        default:
-          description: unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
 components:
   schemas:
     Category:
