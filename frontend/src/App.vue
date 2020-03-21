@@ -96,6 +96,11 @@ body, html, #app {
   border: solid 2px #17a48b !important;
 }
 
+.Rectangle-Inactive {
+  border-radius: 8px !important;
+  border: 2px solid #6c757d !important;
+}
+
 .Rectangle-CTA {
   background-color: #17a48b !important;
   color: #fff !important;

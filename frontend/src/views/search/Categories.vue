@@ -1,5 +1,5 @@
 <template>
-  <b-row id="categories" class="flex-column">
+  <b-row id="categories" class="flex-column justify-content-between">
     <b-col>
       <p class="Welche-Materialien-s">
         Welche Materialien suchen Sie?
@@ -14,6 +14,12 @@
           @selected="onSelection($event)">
         </category>
       </b-row>
+    </b-col>
+    <b-col class="d-flex flex-column justify-content-end">
+      <b-button class="w-100" 
+      :disabled="selectedItems.length === 0"
+      :class="nextButtonClass" 
+      @click="navToMaterialSearch">Weiter</b-button>
     </b-col>
   </b-row>
 </template>
@@ -46,6 +52,11 @@ export default {
       }]
     }
   },
+  computed: {
+    nextButtonClass () {     
+      return this.selectedItems.length > 0 ? ['Rectangle', 'Rectangle-CTA'] : 'Rectangle-Inactive'
+    }
+  },
   methods: {
     onSelection(categoryId) {
       const idx = this.selectedItems.indexOf(categoryId)
@@ -55,15 +66,14 @@ export default {
       } else {
         this.selectedItems.push(categoryId)
       }
-
-      console.log(this.selectedItems)
     }
   }
 }
 </script>
 <style scoped>
-#materials {
-  padding: 35px 15px 15px 15px;
+#categories {
+  padding: 35px 0px 15px 0px;
+  height: calc(100% - 56px);
 }
 
 /* ZEPLIN CSS */
