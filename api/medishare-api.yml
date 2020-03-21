@@ -17,6 +17,50 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Categories"
+    post:
+      description: Create new category
+      responses:
+        '201':
+          description: Created
+          content: 
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+        '400':
+          description: Not Found
+          content: 
+            application/json:
+              shema:
+                type: object
+                properties:
+                  message:
+                    type: string        
+  /categories/{id}:
+    get:
+      description: Get single category
+      parameters:
+        - name:  id
+          in: path
+          schema:
+           type: integer
+           format: int32
+          required: true
+      responses:
+        '200':
+          description: OK
+          content: 
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+        '404':
+          description: Not Found
+          content: 
+            application/json:
+              shema:
+                type: object
+                properties:
+                  message:
+                    type: string
   /item-requests:
     get:
       summary: Get all current searches order by how close they are

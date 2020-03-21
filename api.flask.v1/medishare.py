@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, make_response
 from db import db, reset_database
 from models.user import User
-from controllers import AdvertisementAPI, CategoryAPI
+from controllers import AdvertisementAPI, CategoryAPI, LocationAPI
 
 app = Flask(__name__)
 
@@ -39,6 +39,7 @@ def initialize_app(thisapp):
 def register_routes():
     register_api(AdvertisementAPI, 'advertisment_api', '/advertisments/')
     register_api(CategoryAPI, 'category_api', '/categories/')
+    register_api(LocationAPI, 'location_api', '/locations/')
 
 def main():
     initialize_app(app)
