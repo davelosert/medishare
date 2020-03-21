@@ -2,6 +2,7 @@ import os
 import mysql.connector
 from mysql.connector import errorcode
 import logging
+import medishare_tables
 
 logger = logging.getLogger('module medishare_db')
 logger.setLevel(logging.DEBUG)
