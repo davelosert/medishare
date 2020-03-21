@@ -1,5 +1,5 @@
 <template>
-  <b-row class="home h-100 flex-column justify-content-between" no-gutters>
+  <b-row class="home flex-column justify-content-between" no-gutters>
     <b-col>
       <img src="../assets/home/group-4.svg" class="Group-4">
     </b-col>
@@ -15,7 +15,7 @@
         class="flex-column w-100 h-100 align-items-stretch justify-content-end"
         no-gutters>
         <b-col class="flex-grow-0">
-          <b-button class="w-100 Rectangle Rectangle-CTA">Ich suche Materialien</b-button>
+          <b-button class="w-100 Rectangle Rectangle-CTA" @click="navToMaterialSearch">Ich suche Materialien</b-button>
         </b-col>
         <b-col class="ms-mt-16 flex-grow-0">
           <b-button class="w-100 Rectangle Rectangle-Default">Ich kann Materialien teilen</b-button>
@@ -31,6 +31,11 @@ export default {
   data() {
     return {
       username: 'Dr. Meier'
+    }
+  },
+  methods: {
+    navToMaterialSearch () {
+      this.$router.push({name: 'SearchMaterial'})
     }
   }
 }

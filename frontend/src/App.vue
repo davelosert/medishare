@@ -1,6 +1,11 @@
 <template>
-<b-container fluid id="app">
+<b-container fluid id="app" class="h-100">
   <b-navbar toggleable="lg" type="dark" class="pr-0 pl-0">
+    <b-navbar-nav>
+      <div @click="back" class="back-button" :class="{'hover': displayBack}">
+        <img alt="Back" src="./assets/ic-24-back.svg" v-show="displayBack">
+      </div>      
+    </b-navbar-nav>
     <b-navbar-nav fill class="ml-auto mr-auto">
       <img alt="Brand" src="./assets/home/medi-share-logo.svg">
     </b-navbar-nav>
@@ -16,6 +21,29 @@
   <router-view/>
 </b-container>
 </template>
+<script>
+export default {
+  data () {
+    return {
+      displayBack: false
+    }
+  },
+  methods: {
+    back() {
+      if (!this.displayBack) {
+        return
+      }
+      
+      this.$router.go(-1)
+    }
+  },
+  watch: {
+    $route (newVal) {
+      this.displayBack = newVal.name !== 'Home'
+    }
+  }
+}
+</script>
 
 <style>
 body, html, #app {
@@ -34,6 +62,18 @@ body, html, #app {
   letter-spacing: normal;
   text-align: center;
   color: #2c3e50;
+}
+
+.back-button {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  background-color: #fff !important;
+  border: none !important;
+}
+
+.hover {
+  cursor: pointer;
 }
 
 #nav {
