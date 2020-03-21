@@ -1,6 +1,6 @@
 TABLES = {}
-TABLES['users'] = (
-    "CREATE TABLE `users` ("
+TABLES['user'] = (
+    "CREATE TABLE `user` ("
     "  `user_id` int(11) NOT NULL AUTO_INCREMENT,"
     "  `lastname` varchar(50) NOT NULL,"
     "  `firstname` varchar(50) NOT NULL,"
@@ -10,22 +10,22 @@ TABLES['users'] = (
     "  `medical_practice_id` int(11) NOT NULL,"
     "  PRIMARY KEY (`user_id`)"
     ") ENGINE=InnoDB")
-TABLES['medical_practices'] = (
-    "CREATE TABLE `medical_practices` ("
+TABLES['medical_practice'] = (
+    "CREATE TABLE `medical_practice` ("
     "  `medical_practice_id` int(11) NOT NULL AUTO_INCREMENT,"
     "  `lanr` char(9) NOT NULL,"
     "  `location_id` int(11) NOT NULL,"
     "  PRIMARY KEY (`medical_practice_id`)"
     ") ENGINE=InnoDB")
-TABLES['locations'] = (
-    "CREATE TABLE `locations` ("
+TABLES['location'] = (
+    "CREATE TABLE `location` ("
     "  `location_id` int(11) NOT NULL AUTO_INCREMENT,"
-    "  `plz` char(5) NOT NULL,"
+    "  `zip` char(5) NOT NULL,"
     "  `place_name` varchar(100),"
     "  PRIMARY KEY (`location_id`)"
     ") ENGINE=InnoDB")
-TABLES['advertisements'] = (
-    "CREATE TABLE `advertisements` ("
+TABLES['advertisement'] = (
+    "CREATE TABLE `advertisement` ("
     "  `advertisement_id` int(11) NOT NULL AUTO_INCREMENT,"
     "  `advertisement_topic` varchar(100) NOT NULL,"
     "  `advertisement_content` text NOT NULL,"
@@ -35,8 +35,8 @@ TABLES['advertisements'] = (
     "  `advertisement_status_id` int(11) NOT NULL,"
     "  PRIMARY KEY (`advertisement_id`)"
     ") ENGINE=InnoDB")
-TABLES['advertisement_categories'] = (
-    "CREATE TABLE `advertisement_categories` ("
+TABLES['advertisement_category'] = (
+    "CREATE TABLE `advertisement_category` ("
     "  `advertisement_category_id` int(11) NOT NULL AUTO_INCREMENT,"
     "  `advertisement_category_name` varchar(5) NOT NULL,"
     "  PRIMARY KEY (`advertisement_category_id`)"
