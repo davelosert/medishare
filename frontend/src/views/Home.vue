@@ -35,7 +35,7 @@ export default {
   },
   methods: {
     navToMaterialSearch () {
-      this.$router.push({name: 'SearchMaterial'})
+      this.$router.push({name: 'Categories'})
     }
   }
 }
