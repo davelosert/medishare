@@ -8,7 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "bootstrap-vue": "^2.1.0",
+    "bootstrap-vue": "^2.7.0",
     "core-js": "^3.6.4",
     "vue": "^2.6.11",
     "vue-router": "^3.1.5",
@@ -22,7 +22,7 @@
     "@vue/cli-plugin-vuex": "^4.2.3",
     "@vue/cli-service": "~4.2.0",
     "babel-eslint": "^10.0.3",
-    "bootstrap": "^4.3.1",
+    "bootstrap": "^4.4.1",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-vue": "^6.1.2",
@@ -41,7 +41,8 @@
     },
     "extends": [
       "plugin:vue/essential",
-      "eslint:recommended"
+      "eslint:recommended",
+      "eslint:standard"
     ],
     "parserOptions": {
       "parser": "babel-eslint"

@@ -1,18 +1,37 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+<b-container fluid id="app">
+  <b-navbar toggleable="lg" type="dark" class="pr-0 pl-0">
+    <b-navbar-nav fill class="ml-auto mr-auto">
+      <img alt="Brand" src="./assets/home/medi-share-logo.svg">
+    </b-navbar-nav>
+    <b-navbar-nav>
+      <b-nav-item-dropdown right no-caret>
+        <!-- Using 'button-content' slot -->
+        <template v-slot:button-content>
+          <img alt="three dots" src="./assets/home/ic-24-overflow.svg">
+        </template>
+      </b-nav-item-dropdown>
+    </b-navbar-nav>
+  </b-navbar>
+  <router-view/>
+</b-container>
 </template>
 
 <style>
+body, html, #app {
+  height: 100%;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
   text-align: center;
   color: #2c3e50;
 }
@@ -29,4 +48,20 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+/* ZEPLIN CSS */
+
+.Rectangle-CTA {
+  border-radius: 8px;
+  background-color: #17a48b;
+  color: #fff;
+}
+
+.Rectangle-Default {
+  border-radius: 8px;
+  border: solid 2px #17a48b;
+  color: #17a48b;
+  background-color: #fff;
+}
+
 </style>
