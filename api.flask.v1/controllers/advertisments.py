@@ -42,6 +42,6 @@ class AdvertisementAPI(MethodView):
         # delete a single user
         pass
 
-    def put(self, user_id):
+    def put(self, id):
         # update a single user
         pass

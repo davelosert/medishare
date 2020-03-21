@@ -1,5 +1,6 @@
 from db import db
-    
+from models import Medical
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     public_id = db.Column(db.String(50), unique=True)

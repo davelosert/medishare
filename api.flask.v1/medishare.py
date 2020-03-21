@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify, make_response
 from db import db, reset_database
 from models.user import User
-from controllers.advertisments import AdvertisementAPI, create_advertisment, get_advertisment
+from controllers import AdvertisementAPI, CategoryAPI
 
 app = Flask(__name__)
 
@@ -24,22 +24,25 @@ def login():
 
     return make_response('Could not verify', 401, {'WWW-Authenticate': 'Basic realm="Login required!"'})
 
+def register_api(view, endpoint, url, pk='id', pk_type='int'):
+    view_func = view.as_view(endpoint)
+    app.add_url_rule(url, defaults={pk: None}, view_func=view_func, methods=['GET',])
+    app.add_url_rule(url, view_func=view_func, methods=['POST',])
+    app.add_url_rule('%s<%s:%s>' % (url, pk_type, pk), view_func=view_func, methods=['GET', 'PUT', 'DELETE'])
+
 def initialize_app(thisapp):
     thisapp.config['SECRET_KEY'] = 'thisissecret'
     thisapp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
 
     db.init_app(thisapp)
 
-    #thisapp.add_url_rule("/advertisments", "advertisments", get_advertisment, methods=['GET'])
-    #thisapp.add_url_rule("/advertisments", "newadvertisment", create_advertisment, methods=['POST'])
-
-    adv_view = AdvertisementAPI.as_view('advertisment_api')
-    app.add_url_rule('/advertisments/', defaults={'id': None}, view_func=adv_view, methods=['GET'])
-    app.add_url_rule('/advertisments/', view_func=adv_view, methods=['POST'])
-    app.add_url_rule('/advertisments/<int:id>', view_func=adv_view, methods=['GET', 'PUT', 'DELETE'])
+def register_routes():
+    register_api(AdvertisementAPI, 'advertisment_api', '/advertisments/')
+    register_api(CategoryAPI, 'category_api', '/categories/')
 
 def main():
     initialize_app(app)
+    register_routes()
     app.run(debug=True)
 
 if __name__ == '__main__':

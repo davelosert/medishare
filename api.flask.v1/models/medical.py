@@ -1,4 +1,5 @@
 from db import db
+from models import Location
 
 class Medical(db.Model):
     id = db.Column(db.Integer, primary_key=True)
