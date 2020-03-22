@@ -3,18 +3,18 @@ from cerberus import Validator
 
 class Status(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(50), nullable=False)
 
     @property
     def serialize(self):
         return {
             'id': self.id,
-            'text': self.text,
+            'name': self.name,
             }
 
     @staticmethod
     def fromJson(data):
-        input_shema = Validator({'text': {'type': 'string'}})
+        input_shema = Validator({'name': {'type': 'string'}})
         if not input_shema.validate(data):
             return None
-        return Status(text=data['text'])
+        return Status(name=data['name'])
