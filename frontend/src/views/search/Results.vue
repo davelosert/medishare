@@ -2,39 +2,54 @@
   <b-row id="results" class="flex-column">
     <b-col class="Search-Query ms-card flex-shrink-1 flex-grow-0">
       <p class="Ihre-Suche">Ihre Suche:</p>
-      <p 
+      <p
         class="-OP-Masken-Sofort p-0 m-0"
-        v-for="(item, index) in queryItems" 
-        :key="index">{{ item }}</p>
+        v-for="(item, index) in queryItems"
+        :key="index"
+      >{{ item }}</p>
     </b-col>
     <separator :delimiter="'Angebote'"></separator>
     <result
       class="ms-mt-15"
       v-for="result in results"
       :key="result.giverId"
-      :item="result">
-    </result>
+      :item="result"
+      @contactDonors="contactDonors($event)"
+    ></result>
     <div class="ms-mt-64 d-flex flex-column">
       <h2 class="Nichts-passendes-dab">Nichts passendes dabei?</h2>
-      <span class="Erstellen-Sie-einfac">Erstellen Sie einfach ein Such-Inserat, wir benachrichtigen Sie sobald ein passendes Angebot eingestellt wurde.:</span>
-      <b-button 
-        class="w-100 Rectangle ms-mt-24"
-        :style="buttonStyle">Inserat erstellen</b-button>
+      <span
+        class="Erstellen-Sie-einfac"
+      >Erstellen Sie einfach ein Such-Inserat, wir benachrichtigen Sie sobald ein passendes Angebot eingestellt wurde.:</span>
+      <b-button class="w-100 Rectangle ms-mt-24" :style="buttonStyle">Inserat erstellen</b-button>
     </div>
+    <b-modal id="modal" hide-header hide-footer centered>
+      <h2 class="Anbieter-wurde-konta">Anbieter wurden kontaktiert</h2>
+      <p
+        class="Wir-haben-den-Anbiet ms-mt-15"
+      >Wir haben den Anbieter benachrichtigt, dass bei ihnen Bedarf besteht. Sie erhalten in Kürze Feedback mit weiteren Informationen.</p>
+      <b-button 
+        @click="onModalClose"
+        class="Rectangle-O-CTA w-100 ms-mt-24">Schließen</b-button>
+      <b-button
+        @click="onLookForMore"
+        class="Rectangle-O w-100 ms-mt-15">Weitere Materialien suchen</b-button>
+    </b-modal>
   </b-row>
 </template>
 <script>
-import { mapState } from 'vuex' 
-import Result from './results_views/Result'
-import Separator from './Separator'
+import { mapState } from 'vuex';
+import Result from './results_views/Result';
+import Separator from './Separator';
 
 export default {
   name: 'results',
   components: {
-    Result, Separator
+    Result,
+    Separator
   },
-  created () {
-    this.$store.dispatch('searchResults/search')
+  created() {
+    this.$store.dispatch('searchResults/search');
   },
   computed: {
     ...mapState({
@@ -43,18 +58,35 @@ export default {
       buttonStyle: state => state.theme.activeStyle.buttons
     }),
     queryItems() {
-      const requestDate = new Date(this.query.date)
-      const now = new Date()
-      const isRequestedNow = requestDate.getDate() === now.getDate() && 
+      const requestDate = new Date(this.query.date);
+      const now = new Date();
+      const isRequestedNow =
+        requestDate.getDate() === now.getDate() &&
         requestDate.getMonth() === now.getMonth() &&
-        requestDate.getFullYear() === now.getFullYear()
+        requestDate.getFullYear() === now.getFullYear();
       return [
         `${this.query.count} ${this.query.category.name}`,
-        isRequestedNow ? 'Sofort' : new Date(this.query.date).toLocaleDateString()
-      ]
+        isRequestedNow
+          ? 'Sofort'
+          : new Date(this.query.date).toLocaleDateString()
+      ];
+    }
+  },
+  methods: {
+    contactDonors(donorIds) {
+      console.log('Will contact ' + JSON.stringify(donorIds));
+      this.$bvModal.show('modal');
+    },
+    onModalClose() {
+      this.$bvModal.hide('modal')
+      this.$router.replace({name: 'Home'})
+    },
+    onLookForMore() {
+      this.$bvModal.hide('modal')
+      this.$router.go(-2)
     }
   }
-}
+};
 </script>
 
 <style scoped>

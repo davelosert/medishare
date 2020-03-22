@@ -13,7 +13,8 @@
     </result-entity>
     <b-button 
       class="Rectangle w-100 ms-mt-46"
-      :style="buttonStyle">{{ buttonText }}</b-button>
+      :style="buttonStyle"
+      @click="$emit('contactDonors', item.items)">{{ buttonText }}</b-button>
   </b-col>
 </template>
 <script>
