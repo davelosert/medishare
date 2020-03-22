@@ -1,13 +1,13 @@
 <template>
   <b-row id="search" class="flex-column justify-content-around">
     <b-col>
-      <span class="Whlen-Sie-wann-und">
-        Wählen Sie wann und wieviele {{ category.name }} Sie benötigen
-      </span>
+      <span
+        class="Whlen-Sie-wann-und"
+      >Wählen Sie wann und wieviele {{ category.name }} Sie {{ text }}</span>
     </b-col>
     <b-col>
       <div class="center-container">
-        <b-input type="number" min="1" max="1000" v-model="countValue"/>
+        <b-input type="number" min="1" max="1000" v-model="countValue" />
         <b-form-datepicker
           no-flip
           dropup
@@ -19,52 +19,63 @@
       </div>
     </b-col>
     <b-col class="d-flex flex-column justify-content-end">
-      <b-button class="Rectangle Rectangle-CTA w-100" @click="search">Suchen</b-button>
+      <b-button :style="buttonStyle" class="Rectangle w-100" @click="search">Suchen</b-button>
     </b-col>
   </b-row>
 </template>
 
 <script>
-  export default {
-    name: 'search',
-    props: {
-      categoryId: {
-        required: true,
-      }
+export default {
+  name: "search",
+  props: {
+    categoryId: {
+      required: true
+    }
+  },
+  data() {
+    return {
+      dateValue: new Date(),
+      countValue: 10
+    };
+  },
+  mounted() {
+    const { date, count } = this.$store.state.cart.query;
+    this.dateValue = date;
+    this.countValue = count;
+  },
+  computed: {
+    category() {
+      return this.$store.getters["categories/getCategory"](this.categoryId);
     },
-    data () {
-      return {
-        dateValue: new Date(),
-        countValue: 10
-      }
+    formattedDate() {
+      return this.dateValue.toLocaleDateString();
     },
-    mounted () {
-      const { date, count } = this.$store.state.cart.query
-      this.dateValue = date
-      this.countValue = count
+    buttonStyle() {
+      return this.$store.state.theme.activeStyle.buttons;
     },
-    computed: {
-      category () {
-        return this.$store.getters['categories/getCategory'](this.categoryId)
-      },
-      formattedDate () {
-        return this.dateValue.toLocaleDateString()
-      }
-    },
-    methods: {
-      setDateToNow () {
-        this.dateValue = new Date()
-      },
-      search () {
-        this.$store.dispatch('cart/setQuery', {
-          date: this.dateValue,
-          count: this.countValue,
-          category: this.category
-        })
-        this.$router.push({name: 'Results'})
+    text() {
+      const activeIsDonor = this.$store.getters["theme/activeIsDonor"];
+      if (activeIsDonor) {
+        return "bereitstellen könnten";
+      } else {
+        return "benötigen";
       }
     }
+  },
+  methods: {
+    setDateToNow() {
+      this.dateValue = new Date();
+    },
+    search() {
+      this.$store.dispatch("cart/setQuery", {
+        date: this.dateValue,
+        count: this.countValue,
+        category: this.category
+      });
+      this.$router.push({ name: "Results" });
+    }
   }
+};
 </script>
 
 <style scoped>
