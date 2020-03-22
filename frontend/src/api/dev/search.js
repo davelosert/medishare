@@ -1,7 +1,13 @@
 export default {
   search({ category, count, date }) {
     console.log(`Searching for ${count} of ${category.name} until ${date}`)
-
+    if (category.id === 5) {
+      return Promise.resolve({
+        success: true,
+        data: []
+      })
+    }
+    
     return Promise.resolve({
       success: true,
       data: [{

@@ -8,7 +8,7 @@
         :key="index"
       >{{ item }}</p>
     </b-col>
-    <separator :delimiter="'Angebote'"></separator>
+    <separator :delimiter="'Angebote'" v-if="results.length > 0"></separator>
     <result
       class="ms-mt-15"
       v-for="result in results"
@@ -16,7 +16,7 @@
       :item="result"
       @contactDonors="contactDonors($event)"
     ></result>
-    <div class="ms-mt-64 d-flex flex-column">
+    <div class="ms-mt-64 d-flex flex-column" v-if="results.length > 0">
       <h2 class="Nichts-passendes-dab">Nichts passendes dabei?</h2>
       <span
         class="Erstellen-Sie-einfac"
@@ -24,12 +24,12 @@
       <b-button class="w-100 Rectangle ms-mt-24" :style="buttonStyle">Inserat erstellen</b-button>
     </div>
     <b-modal id="modal" hide-header hide-footer centered>
-      <h2 class="Anbieter-wurde-konta">Anbieter wurden kontaktiert</h2>
+      <h2 class="Anbieter-wurde-konta">{{ modalProps.title }}</h2>
       <p
         class="Wir-haben-den-Anbiet ms-mt-15"
-      >Wir haben den Anbieter benachrichtigt, dass bei ihnen Bedarf besteht. Sie erhalten in Kürze Feedback mit weiteren Informationen.</p>
-      <b-button @click="onModalCTAClick" class="Rectangle-O-CTA w-100 ms-mt-24">Schließen</b-button>
-      <b-button @click="onModalDefaulClick" class="Rectangle-O w-100 ms-mt-15">Weitere Materialien suchen</b-button>
+      >{{ modalProps.description }}</p>
+      <b-button @click="onModalCTAClick" class="Rectangle-O-CTA w-100 ms-mt-24">{{ modalProps.ctaText }}</b-button>
+      <b-button @click="onModalDefaulClick" class="Rectangle-O w-100 ms-mt-15">{{ modalProps.btnText }}</b-button>
     </b-modal>
   </b-row>
 </template>
@@ -40,9 +40,10 @@ import Separator from './Separator';
 
 const modalType = {
   CONTACT_DONORS: 'CONTACT_DONORS',
-  NO_ITEMS_FOUND: 'NO_ITEMS_FOUND',
-  ADVERTISEMENT_CREATED: 'ADVERTISEMENT_CREATED'
+  NO_ITEMS_FOUND: 'NO_ITEMS_FOUND'
 }
+
+let timeoutId
 
 export default {
   name: 'results',
@@ -58,12 +59,42 @@ export default {
       modalType: undefined
     }
   },
+  mounted () {
+    timeoutId = setTimeout(() => {
+      if (this.$store.state.cart.query.category.id === 5) {
+        this.modalType = modalType.NO_ITEMS_FOUND
+        this.$bvModal.show('modal');
+      }
+    }, 200)
+  },
+  beforeDestroy () {
+    clearTimeout(timeoutId)
+  },
   computed: {
     ...mapState({
       results: state => state.searchResults.result,
       query: state => state.cart.query,
       buttonStyle: state => state.theme.activeStyle.buttons
     }),
+    modalProps() {
+      if (this.modalType === modalType.CONTACT_DONORS) {
+        return {
+          title: 'Anbieter wurden kontaktiert',
+          description: 'Wir haben den Anbieter benachrichtigt, dass bei ihnen Bedarf besteht. Sie erhalten in Kürze Feedback mit weiteren Informationen.',
+          ctaText: 'Schließen',
+          btnText: 'Weitere Materialien suchen'
+        }
+      } else if (this.modalType === modalType.NO_ITEMS_FOUND) {
+        return {
+          title: 'Es wurde leider kein passendes Angebot gefunden',
+          description: 'Erstellen Sie stattdessen ein Suchinserat mit Ihrem Bedarf. Sobald wir einen passenden Anbieter finden, werden Sie sofort benachrichtigt.',
+          ctaText: 'Such-Inserat erstellen',
+          btnText: 'Bearbeiten'
+        }
+      }
+
+      return 'Hello'
+    },
     queryItems() {
       const requestDate = new Date(this.query.date);
       const now = new Date();
@@ -77,18 +108,22 @@ export default {
           ? 'Sofort'
           : new Date(this.query.date).toLocaleDateString()
       ];
-    }
+    },
   },
   methods: {
     onModalCTAClick() {
       this.$bvModal.hide('modal')
       if (this.modalType === modalType.CONTACT_DONORS) {
         this.onModalClose()
+      } else if (this.modalType === modalType.NO_ITEMS_FOUND) {
+        this.$router.go(-2)
       }
     },
     onModalDefaulClick() {
       if (this.modalType === modalType.CONTACT_DONORS) {
         this.onLookForMore()
+      } else if (this.modalType === modalType.NO_ITEMS_FOUND) {
+        this.$router.go(-2)
       }
     },
     contactDonors(donorIds) {
