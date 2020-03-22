@@ -18,7 +18,7 @@
       </div>
     </b-col>
     <b-col class="d-flex flex-column justify-content-end">
-      <b-button class="Rectangle-CTA w-100">Suchen</b-button>
+      <b-button class="Rectangle-CTA w-100" @click="search">Suchen</b-button>
     </b-col>
   </b-row>
 </template>
@@ -28,7 +28,6 @@
     name: 'search',
     props: {
       categoryId: {
-        type: Number,
         required: true,
       }
     },
@@ -37,6 +36,11 @@
         dateValue: new Date(),
         countValue: 10
       }
+    },
+    mounted () {
+      const { date, count } = this.$store.state.cart.query
+      this.dateValue = date
+      this.countValue = count
     },
     computed: {
       category () {
@@ -49,6 +53,14 @@
     methods: {
       setDateToNow () {
         this.dateValue = new Date()
+      },
+      search () {
+        this.$store.dispatch('cart/setQuery', {
+          date: this.dateValue,
+          count: this.countValue,
+          categoryName: this.category.name
+        })
+        this.$router.push({name: 'Results'})
       }
     }
   }
