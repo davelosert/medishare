@@ -3,7 +3,7 @@
     <b-col>
       <span
         class="Whlen-Sie-wann-und"
-      >Wählen Sie wann und wieviele {{ category.name }} Sie {{ text }}</span>
+      >{{ searchDescription }}</span>
     </b-col>
     <b-col>
       <div class="center-container">
@@ -25,8 +25,8 @@
       <h2 class="Anbieter-wurde-konta">Ihr Inserat wurde erstellt</h2>
       <p
         class="Wir-haben-den-Anbiet ms-mt-15"
-      >Sollte jemand nach Ihren Materialien suchen, werden wir die Kontaktaufnahme herstellen</p>
-      <b-button @click="back" class="Rectangle-O-CTA w-100 ms-mt-24">Weitere Materialien anbieten</b-button>
+      >{{ modalProps.description }}</p>
+      <b-button @click="back" class="Rectangle-O-CTA w-100 ms-mt-24">{{ modalProps.btnCTAText }}</b-button>
       <b-button @click="goHome" class="Rectangle-O w-100 ms-mt-15">Zurück zur Startseite</b-button>
     </b-modal>
   </b-row>
@@ -38,6 +38,10 @@ export default {
   props: {
     categoryId: {
       required: true
+    },
+    create: {
+      required: false,
+      default: false
     }
   },
   data() {
@@ -68,7 +72,31 @@ export default {
       return this.activeIsDonor ? "bereitstellen könnten" : "benötigen";
     },
     buttonText() {
+      if (this.create) {
+        return 'Such-Inserat erstellen'
+      }
+
       return this.activeIsDonor ? "Inserieren" : "Suchen";
+    },
+    searchDescription() {
+      if (!this.create) {
+        return `Wählen Sie wann und wieviele ${this.category.name} Sie ${this.text}`
+      } else {
+        return 'Kontrollieren Sie ob Ihre Angaben für Ihr Gesuch korrekt sind.'
+      }
+    },
+    modalProps () {
+      if (this.activeIsDonor) {
+        return {
+          description: 'Sobald wir einen passenden Anbieter finden, werden Sie sofort benachrichtigt.',
+          btnCTAText: 'Weitere Materialien anbieten'
+        }
+      } else {
+        return {
+          description: 'Sollte jemand nach Ihren Materialien suchen, werden wir die Kontaktaufnahme herstellen',
+          btnCTAText: 'Inserat anzeigen'
+        }
+      }
     }
   },
   methods: {
@@ -76,7 +104,7 @@ export default {
       this.dateValue = new Date();
     },
     search() {
-      if (this.activeIsDonor) {
+      if (this.activeIsDonor || this.create) {
         this.$bvModal.show("modal");
         return;
       }
@@ -89,7 +117,11 @@ export default {
     },
     back() {
       this.$bvModal.hide("modal");
-      this.$router.go(-1);
+      if (this.create) {
+        this.goHome()
+      } else {
+        this.$router.go(-1);
+      }
     },
     goHome() {
       this.$bvModal.hide("modal");

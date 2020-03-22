@@ -1,14 +1,14 @@
 const receiverStyles = {
   buttons: {
-    border: 'solid 2px var(--ms-primary) !important',
-    backgroundColor: 'var(--ms-primary) !important',
+    border: 'solid 2px var(--ms-orange) !important',
+    backgroundColor: 'var(--ms-orange) !important',
   }
 }
 
 const donorStyles = {
   buttons: {
-    border: 'solid 2px var(--ms-orange) !important',
-    backgroundColor: 'var(--ms-orange) !important',
+    border: 'solid 2px var(--ms-primary) !important',
+    backgroundColor: 'var(--ms-primary) !important',
   }
 }
 

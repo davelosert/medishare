@@ -21,7 +21,10 @@
       <span
         class="Erstellen-Sie-einfac"
       >Erstellen Sie einfach ein Such-Inserat, wir benachrichtigen Sie sobald ein passendes Angebot eingestellt wurde.:</span>
-      <b-button class="w-100 Rectangle ms-mt-24" :style="buttonStyle">Inserat erstellen</b-button>
+      <b-button 
+        class="w-100 Rectangle ms-mt-24"
+        :style="buttonStyle"
+        @click="createAdvertisement">Inserat erstellen</b-button>
     </div>
     <b-modal id="modal" hide-header hide-footer centered>
       <h2 class="Anbieter-wurde-konta">{{ modalProps.title }}</h2>
@@ -116,7 +119,8 @@ export default {
       if (this.modalType === modalType.CONTACT_DONORS) {
         this.onModalClose()
       } else if (this.modalType === modalType.NO_ITEMS_FOUND) {
-        this.$router.go(-2)
+        const selectedItem = this.$store.state.cart.selectedItem
+        this.$router.push({name: 'Search', params: { categoryId: selectedItem, create: true }})
       }
     },
     onModalDefaulClick() {
@@ -136,6 +140,10 @@ export default {
     },
     onLookForMore() {
       this.$router.go(-2)
+    },
+    createAdvertisement() {
+      const selectedItem = this.$store.state.cart.selectedItem
+      this.$router.push({name: 'Search', params: { categoryId: selectedItem, create: true }})
     }
   }
 };
