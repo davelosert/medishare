@@ -6,8 +6,7 @@
         <span class="Masken">{{ category.name }}</span>
       </b-col>
     </b-row>
-    <b-icon-check class="Oval checkmark-container" v-show="isActive">
-    </b-icon-check>
+    <b-icon-check class="Oval checkmark-container" v-show="isActive"></b-icon-check>
   </b-col>
 </template>
 
@@ -20,19 +19,14 @@ export default {
       type: Object
     }
   },
-  data() {
-    return {
-      isActive: false
-    };
+  computed: {
+    isActive () {
+      return this.$store.state.cart.selectedItem === this.category.id
+    }
   },
   methods: {
     onClick() {
-      this.isActive = !this.isActive;
-    }
-  },
-  watch: {
-    isActive() {
-      this.$emit("selected", this.category.id);
+      this.$store.dispatch("cart/set", this.category.id)
     }
   }
 };

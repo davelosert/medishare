@@ -1,6 +1,6 @@
 // initial state
 const state = {
-  items: [],
+  selectedItem: undefined,
   query: {
     count: 1,
     date: new Date()
@@ -9,22 +9,26 @@ const state = {
 
 // actions
 const actions = {
-  set ({ commit }, items) {
-    commit('SET_ITEMS', items)
+  set ({ commit }, selectedItem) {
+    commit('SET_ITEM', selectedItem)
   },
   setQuery ({ commit }, query) {
     commit('SET_QUERY', query)
   },
   clear ({commit}) {
-    commit('SET_ITEMS', [])
+    commit('SET_ITEM', undefined)
     commit('SET_QUERY', {})
   }
 }
 
 // mutations
 const mutations = {
-  SET_ITEMS (state, { items }) {
-    state.items = items
+  SET_ITEM (state, selectedItem) {
+    if (state.selectedItem === selectedItem) {
+      state.selectedItem = undefined
+    } else {
+      state.selectedItem = selectedItem
+    }
   },
   SET_QUERY (state, query) {
     state.query = query

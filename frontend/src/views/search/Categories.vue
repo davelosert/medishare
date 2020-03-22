@@ -10,14 +10,13 @@
         <category v-for="category in categories"
           :key="category.id"
           sm="6"
-          :category="category"
-          @selected="onSelection($event)">
+          :category="category">
         </category>
       </b-row>
     </b-col>
     <b-col class="d-flex flex-column justify-content-end">
       <b-button class="w-100" 
-      :disabled="selectedItems.length === 0"
+      :disabled="selectedItem === undefined"
       :class="nextButtonClass" 
       @click="next">Weiter</b-button>
     </b-col>
@@ -32,35 +31,21 @@ export default {
   components: {
     'category': Category
   },
-  data () {
-    return {
-      selectedItems: []
-    }
-  },
   created () {
     this.$store.dispatch('categories/fetchAll')
   },
   computed: {
     nextButtonClass () {     
-      return this.selectedItems.length > 0 ? ['Rectangle', 'Rectangle-CTA'] : 'Rectangle-Inactive'
+      return this.selectedItem !== undefined ? ['Rectangle', 'Rectangle-CTA'] : 'Rectangle-Inactive'
     },
     ...mapState({
-      categories: state => state.categories.all
+      categories: state => state.categories.all,
+      selectedItem: state => state.cart.selectedItem
     })
   },
   methods: {
-    onSelection(categoryId) {
-      const idx = this.selectedItems.indexOf(categoryId)
-      
-      if (idx > -1) {
-        this.selectedItems.splice(idx, 1)
-      } else {
-        this.selectedItems.push(categoryId)
-      }
-    },
     next () {
-      this.$store.dispatch('cart/set', this.selectedItems)
-      this.$router.push({name: 'Search', params: { categoryId: this.selectedItems[0] }})
+      this.$router.push({name: 'Search', params: { categoryId: this.selectedItem }})
     }
   }
 }
