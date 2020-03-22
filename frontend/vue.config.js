@@ -1,12 +1,14 @@
 const path = require('path')
 
+const envPath = process.env.NODE_ENV === 'production' ? 'main' : 'dev'
+
 // vue.config.js
 module.exports = {
   publicPath: './',
   configureWebpack: {
     resolve: {
       alias: {
-        _assets_: path.resolve(__dirname, '/src/assets')
+        api: path.resolve(__dirname, `src/api/${envPath}`)
       }
     }
   }
