@@ -2,9 +2,14 @@ version: '3'
 services:
   nginx-medishare:
     image: nginx:latest
+    volumes:
+      - "./etc/nginx/default.conf:/etc/nginx/conf.d/default.conf"
+      - "./etc/ssl:/etc/ssl"
+      - "../frontend/public:/var/www/html"
     ports:
       - "8090:80"
-  mysql-medishare:
+      - "3000:443"
+      mysql-medishare:
     build:
       context: ./
       dockerfile: Dockerfile
