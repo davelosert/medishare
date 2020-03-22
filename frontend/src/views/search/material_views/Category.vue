@@ -38,9 +38,10 @@ export default {
 }
 
 .checkmark-container {
-  position: relative;
+  position: absolute;
   z-index: 2;
-  top: -9px;
+  bottom: -12px;
+  left: calc(50% - 12px);
   color: #fff;
 }
 
