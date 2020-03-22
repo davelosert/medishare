@@ -12,7 +12,7 @@ ODER
 MySQL: thisapp.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://medishare:test123@medishare-mysql:3306/medishare'
 
 
-Open topics:
+## Open topics:
   + publish to production web server, as build in flask server is not for realtime production cases  
   + search api for different search scenarios  
   + complete user management and authentication
