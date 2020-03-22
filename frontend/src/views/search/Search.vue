@@ -26,8 +26,10 @@
       <p
         class="Wir-haben-den-Anbiet ms-mt-15"
       >{{ modalProps.description }}</p>
-      <b-button @click="back" class="Rectangle-O-CTA w-100 ms-mt-24">{{ modalProps.btnCTAText }}</b-button>
-      <b-button @click="goHome" class="Rectangle-O w-100 ms-mt-15">Zurück zur Startseite</b-button>
+      <div class="d-flex flex-column align-items-center">
+        <b-button @click="back" class="Rectangle-O-CTA w-100 ms-mt-24">{{ modalProps.btnCTAText }}</b-button>
+        <b-button @click="goHome" class="Rectangle-O w-100 ms-mt-15">Zurück zur Startseite</b-button>
+      </div>
     </b-modal>
   </b-row>
 </template>

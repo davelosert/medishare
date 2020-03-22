@@ -16,7 +16,7 @@
       :item="result"
       @contactDonors="contactDonors($event)"
     ></result>
-    <div class="ms-mt-64 d-flex flex-column" v-if="results.length > 0">
+    <div class="ms-mt-64 d-flex flex-column align-items-center" v-if="results.length > 0">
       <h2 class="Nichts-passendes-dab">Nichts passendes dabei?</h2>
       <span
         class="Erstellen-Sie-einfac"
