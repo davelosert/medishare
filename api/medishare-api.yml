@@ -17,20 +17,56 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Categories"
-  /item-requests:
+    post:
+      description: Create new category
+      responses:
+        '201':
+          description: Created
+          content: 
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+        '400':
+          description: Not Found
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string        
+  /categories/{id}:
+    get:
+      description: Get single category
+      parameters:
+        - name:  id
+          in: path
+          schema:
+           type: integer
+           format: int32
+          required: true
+      responses:
+        '200':
+          description: OK
+          content: 
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Category"
+        '404':
+          description: Not Found
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /advertisements:
     get:
       summary: Get all current searches order by how close they are
-      operationId: listItemRequests
+      operationId: listAdvertisements
       tags:
-        - ItemRequest
-      parameters:
-        - name: limit
-          in: query
-          description: How many items to return at one time (max 100)
-          required: false
-          schema:
-            type: integer
-            format: int32
+        - Advertisement
       responses:
         '200':
           description: A paged list of itemRequest
@@ -42,12 +78,12 @@ paths:
           content:
             application/json:    
               schema:
-                $ref: "#/components/schemas/ItemRequests"
+                $ref: "#/components/schemas/Advertisements"
     post:
-      summary: Create a new Item-Request
-      operationId: createItemRequest
+      summary: Create a new Advertisement
+      operationId: createAdvertisement
       tags:
-        - ItemRequest
+        - Advertisement
       responses:
         '201':
           description: Null response
@@ -64,11 +100,13 @@ components:
           format: int64
         name:
           type: string
+        unit:
+          type: string
     Categories:
       type: array
       items:
         $ref: "#/components/schemas/Category"
-    Requestor:
+    MedicalPractice:
       type: object
       properties:
         id:
@@ -76,15 +114,18 @@ components:
           format: int64
         name:
           type: string
+        lanr:
+          type: string
         phone:
           type: string
-        location:
+        zip:
           type: string
-    ItemRequest:
+        place_name:
+          type: string
+    Advertisement:
       type: object
       required:
         - id
-        - requestorId
         - name
       properties:
         id:
@@ -94,12 +135,14 @@ components:
           $ref: "#/components/schemas/Category"
         amount:
           type: number
-        requestor:
-          $ref: "#/components/schemas/Requestor"
-    ItemRequests:
+        desiredDate:
+          type: string
+        medicalPractice:
+          $ref: "#/components/schemas/MedicalPractice"
+    Advertisements:
       type: array
       items:
-        $ref: "#/components/schemas/ItemRequest"
+        $ref: "#/components/schemas/Advertisement"
     Error:
       type: object
       required:

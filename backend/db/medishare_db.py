@@ -8,11 +8,8 @@ logger = logging.getLogger('module medishare_db')
 logger.setLevel(logging.DEBUG)
 
 config = {
-#    'user': os.getenv('MYSQL_USER'),
-#    'password': os.getenv('MYSQL_PASSWORD'),
-#    'host': os.getenv('MYSQL_HOST'),
-    'user': 'medishare',
-    'password': 'WirvsVirus.MediShare',
+    'user': 'root',
+    'password': 'test123',
     'host': 'localhost',
     'database': 'medishare'
 }

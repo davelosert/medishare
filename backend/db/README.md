@@ -4,5 +4,5 @@ These Python modules create the MySQL database for medishare with the following 
 
     python medishare_db.py
 
-Requirement:
-A MySQL database with the user "medishare", who must have rights to create a database and tables.
+Requirement:Requirement:
+A MySQL database with the user "root", who has the password that is included in the module. Ok, this is insecure but it is a prototype. 
