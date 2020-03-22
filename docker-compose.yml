@@ -8,24 +8,9 @@ services:
       - "80:80"
     volumes:
       - ./frontend/dist:/var/www/medishare.david-losert.com
-  medishare-mysql:
-    image: mysql
-    volumes:
-      - mysql-medishare-data:/var/lib/mysql
-      - ./db/:/docker-entrypoint-initdb.d
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: test123
-      MYSQL_DATABASE: medishare
-      MYSQL_USER: medishare
-      MYSQL_PASSWORD: MediShare
   medishare-backend:
     build:
       context: ./api.flask.v1
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
-volumes:
-  mysql-medishare-data:
-    name: medishare-data
