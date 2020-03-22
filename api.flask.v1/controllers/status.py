@@ -2,7 +2,6 @@ from flask import request, jsonify
 from flask.views import MethodView
 from models import Status
 from db import db
-from cerberus import Validator
 
 class StatusAPI(MethodView):
     def get(self, id):
@@ -41,17 +40,15 @@ class StatusAPI(MethodView):
         if id is None:
             return jsonify({'message' : 'Invalid request'}), 400
 
-        input_shema = Validator({'text': {'type': 'string'}})
-        data = request.get_json()
-
-        if not input_shema.validate(data):
-            return jsonify({'message' : 'Status title missing'}), 400
+        new_status = Status.fromJson(request.get_json())
+        if new_status is None:
+            return jsonify({'message' : 'Status data missing or incomplete'}), 400
 
         status = Status.query.filter_by(id=id).one_or_none()
         if not status:
             return jsonify({'message' : 'Status not found'}), 404
 
-        status.text = data['text']
+        status.name = new_status.name
         db.session.commit()
 
         return jsonify({'message' : 'Status updated'}), 202

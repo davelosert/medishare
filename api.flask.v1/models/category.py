@@ -3,18 +3,20 @@ from cerberus import Validator
 
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    text = db.Column(db.String(50), nullable=False)
+    name = db.Column(db.String(50), nullable=False)
+    image = db.Column(db.String(100))
 
     @property
     def serialize(self):
         return {
             'id': self.id,
-            'text': self.text,
+            'name': self.name,
+            'image': self.image,
             }
 
     @staticmethod
     def fromJson(data):
-        input_shema = Validator({'text': {'type': 'string'}})
+        input_shema = Validator({'name': {'type': 'string'}, 'image': { 'type': 'string'}})
         if not input_shema.validate(data):
             return None
-        return Category(text=data['text'])
+        return Category(name=data['name'], image=data['image'])
