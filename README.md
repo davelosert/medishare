@@ -3,8 +3,16 @@ This Project was developed during the [wirvsvirus-hackathon](https://wirvsvirush
 It is a prototype of the medishare app - described in detail on our [DevPost-Page]().
 
 The app was developed with a Pyhon-Backend, MySQL-Database and Vue-Frontend.
+## State of the Project
+We got far - but we didn't completely reach our own set hackathon goals.
+The biggest missing parts are:
 
-# Setup
+1. Full Front- and Backend Integration: Right now, only one call is actually integrated (/categories)
+2. Full DB Integration: We couldn't finish the MySQL integration, so the Python Backend still operates with a local SQLite Version.
+
+However, we achieved a lot and it was a ton of fun! Thanks to the organizers!
+
+## Setup
 To make it run, follow these steps:
 
 In order for the project to run 
