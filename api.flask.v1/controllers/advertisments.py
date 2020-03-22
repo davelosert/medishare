@@ -23,11 +23,37 @@ class AdvertisementAPI(MethodView):
 
         return jsonify({'message' : 'New advertisement created!'}), 201
 
-
     def delete(self, id):
-        # delete a single user
-        pass
+        if id is None:
+            return jsonify({'message' : 'Invalid request'}), 400
+        
+        advertisement = Advertisement.query.filter_by(id=id).one_or_none()
+        if not advertisement:
+            return jsonify({'message' : 'Advertisement not found'}), 404
+        
+        db.session.delete(advertisement)
+        db.session.commit()
+
+        return jsonify({'message' : 'Advertisement deleted'}), 202
 
     def put(self, id):
-        # update a single user
-        pass
+        if id is None:
+            return jsonify({'message' : 'Invalid request'}), 400
+        
+        new_advertisement = Advertisement.fromJson(request.get_json())
+        if new_advertisement is None:
+            return jsonify({'message' : 'Advertisement data missing or incomplete'}), 400
+
+        advertisement = Advertisement.query.filter_by(id=id).one_or_none()
+        if not advertisement:
+            return jsonify({'message' : 'Advertisement not found'}), 404
+
+        advertisement.topic = new_advertisement.topic
+        advertisement.content = new_advertisement.content
+        advertisement.quantity = new_advertisement.quantity
+        advertisement.desiredAt = new_advertisement.desiredAt
+        advertisement.category_id = new_advertisement.category_id
+        advertisement.status_id = new_advertisement.status_id 
+        db.session.commit()
+
+        return jsonify({'message' : 'Advertisement updated'}), 202

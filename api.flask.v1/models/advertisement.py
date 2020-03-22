@@ -23,29 +23,23 @@ class Advertisement(db.Model):
             'topic': self.topic,
             'content': self.content,
             'quantity': self.quantity,
-            'desiredAt': self.desiredAt,
+            'desiredAt': datetime.strftime(self.desiredAt, '%m-%d-%Y'),
             'category': self.category.serialize,
             'status': self.status.serialize
             }
     
     @staticmethod
     def fromJson(data):
-        import logging, sys
-        logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
-        
-
-        # input_shema = Validator({
-        #     'topic': {'type': 'string'},
-        #     'content': {'type': 'string'},
-        #     'quantity': {'required': False, 'type': 'integer'},
-        #     'desiredAt': {'required': False, 'type': 'datetime'},
-        #     'category': {'required': False, 'type': 'dict', 'schema': {'id': {'type': 'integer'}}},
-        #     'status': {'required': False, 'type': 'dict', 'schema': {'id': {'type': 'integer'}}}
-        # })
-        # logging.debug(data)
-        # if not input_shema.validate(data):
-        #     logging.debug(input_shema._errors)
-        #     return None
+        input_shema = Validator({
+            'topic': {'type': 'string'},
+            'content': {'type': 'string'},
+            'quantity': {'required': False, 'type': 'integer'},
+            'desiredAt': {'required': False, 'type': 'string'},
+            'category': {'required': False, 'type': 'dict', 'schema': {'id': {'type': 'integer'}}},
+            'status': {'required': False, 'type': 'dict', 'schema': {'id': {'type': 'integer'}}}
+        })
+        if not input_shema.validate(data):
+            return None
 
         return Advertisement(topic=data['topic'], content=data['content'], quantity=data['quantity'], 
                                 desiredAt=datetime.strptime(data['desiredAt'], '%m-%d-%Y').date(), category_id=data['category']['id'], status_id=data['status']['id'])
