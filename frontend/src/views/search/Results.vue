@@ -31,8 +31,10 @@
       <p
         class="Wir-haben-den-Anbiet ms-mt-15"
       >{{ modalProps.description }}</p>
-      <b-button @click="onModalCTAClick" class="Rectangle-O-CTA w-100 ms-mt-24">{{ modalProps.ctaText }}</b-button>
-      <b-button @click="onModalDefaulClick" class="Rectangle-O w-100 ms-mt-15">{{ modalProps.btnText }}</b-button>
+      <div class="w-100 d-flex flex-column align-items-center">
+        <b-button @click="onModalCTAClick" class="Rectangle-O-CTA ms-mt-24">{{ modalProps.ctaText }}</b-button>
+        <b-button @click="onModalDefaulClick" class="Rectangle-O ms-mt-15">{{ modalProps.btnText }}</b-button>
+      </div>
     </b-modal>
   </b-row>
 </template>
