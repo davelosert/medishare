@@ -21,10 +21,10 @@ USE `medishare`;
 -- Table structure for table `advertisement_categories`
 --
 
-DROP TABLE IF EXISTS `advertisement_categories`;
+DROP TABLE IF EXISTS `categtory`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `advertisement_categories` (
+CREATE TABLE `category` (
   `advertisement_category_id` int(11) NOT NULL AUTO_INCREMENT,
   `advertisement_category_name` varchar(5) NOT NULL,
   PRIMARY KEY (`advertisement_category_id`)
@@ -35,7 +35,7 @@ CREATE TABLE `advertisement_categories` (
 -- Dumping data for table `advertisement_categories`
 --
 
-LOCK TABLES `advertisement_categories` WRITE;
+LOCK TABLES `category` WRITE;
 /*!40000 ALTER TABLE `advertisement_categories` DISABLE KEYS */;
 /*!40000 ALTER TABLE `advertisement_categories` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -67,10 +67,10 @@ UNLOCK TABLES;
 -- Table structure for table `advertisements`
 --
 
-DROP TABLE IF EXISTS `advertisements`;
+DROP TABLE IF EXISTS `advertisement`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `advertisements` (
+CREATE TABLE `advertisement` (
   `advertisement_id` int(11) NOT NULL AUTO_INCREMENT,
   `advertisement_topic` varchar(100) NOT NULL,
   `advertisement_content` text NOT NULL,
@@ -86,7 +86,7 @@ CREATE TABLE `advertisements` (
 -- Dumping data for table `advertisements`
 --
 
-LOCK TABLES `advertisements` WRITE;
+LOCK TABLES `advertisement` WRITE;
 /*!40000 ALTER TABLE `advertisements` DISABLE KEYS */;
 /*!40000 ALTER TABLE `advertisements` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -95,10 +95,10 @@ UNLOCK TABLES;
 -- Table structure for table `locations`
 --
 
-DROP TABLE IF EXISTS `locations`;
+DROP TABLE IF EXISTS `location`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `locations` (
+CREATE TABLE `location` (
   `location_id` int(11) NOT NULL AUTO_INCREMENT,
   `plz` char(5) NOT NULL,
   `place_name` varchar(100) DEFAULT NULL,
@@ -110,7 +110,7 @@ CREATE TABLE `locations` (
 -- Dumping data for table `locations`
 --
 
-LOCK TABLES `locations` WRITE;
+LOCK TABLES `location` WRITE;
 /*!40000 ALTER TABLE `locations` DISABLE KEYS */;
 /*!40000 ALTER TABLE `locations` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -119,10 +119,10 @@ UNLOCK TABLES;
 -- Table structure for table `medical_practices`
 --
 
-DROP TABLE IF EXISTS `medical_practices`;
+DROP TABLE IF EXISTS `medical_practice`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `medical_practices` (
+CREATE TABLE `medical_practice` (
   `medical_practice_id` int(11) NOT NULL AUTO_INCREMENT,
   `lanr` char(9) NOT NULL,
   `location_id` int(11) NOT NULL,
@@ -134,7 +134,7 @@ CREATE TABLE `medical_practices` (
 -- Dumping data for table `medical_practices`
 --
 
-LOCK TABLES `medical_practices` WRITE;
+LOCK TABLES `medical_practice` WRITE;
 /*!40000 ALTER TABLE `medical_practices` DISABLE KEYS */;
 /*!40000 ALTER TABLE `medical_practices` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -143,10 +143,10 @@ UNLOCK TABLES;
 -- Table structure for table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `users` (
+CREATE TABLE `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `lastname` varchar(50) NOT NULL,
   `firstname` varchar(50) NOT NULL,
@@ -162,7 +162,7 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-LOCK TABLES `users` WRITE;
+LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;

@@ -33,7 +33,7 @@ def register_api(view, endpoint, url, pk='id', pk_type='int'):
 def initialize_app(thisapp):
     thisapp.config['SECRET_KEY'] = 'thisissecret'
     #thisapp.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
-    thisapp.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://medishare:test123@medishare-mysql:3306/medishare'
+    thisapp.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://medishare:MediShare@medishare-mysql:3306/medishare'
     
     db.init_app(thisapp)
 
