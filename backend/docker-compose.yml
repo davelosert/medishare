@@ -1,17 +1,24 @@
-version: '3'
+version: '3.6'
 services:
-  nginx-medishare:
-    image: nginx:latest
+  mysql-medishare:
+    image: mysql
+    #restart: always
     volumes:
-      - "./etc/nginx/default.conf:/etc/nginx/conf.d/default.conf"
-      - "./etc/ssl:/etc/ssl"
-      - "../frontend/public:/var/www/html"
-    ports:
-      - "8090:80"
-      - "3000:443"
-      mysql-medishare:
-    build:
-      context: ./
-      dockerfile: Dockerfile
+      - mysql-medishare-data:/var/lib/mysql
+      - ./db/:/docker-entrypoint-initdb.d
     environment:
       MYSQL_ROOT_PASSWORD: test123
+      MYSQL_DATABASE: medishare
+      MYSQL_USER: medishare
+      MYSQL_PASSWORD: MediShare
+
+  adminer-medishare:
+    image: adminer
+    #restart: always
+    ports:
+      - 8090:8080
+
+volumes:
+  mysql-medishare-data:
+    name: medishare-data
+    
