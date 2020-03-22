@@ -14,6 +14,11 @@
       :key="result.giverId"
       :item="result">
     </result>
+    <div class="ms-mt-64 d-flex flex-column">
+      <h2 class="Nichts-passendes-dab">Nichts passendes dabei?</h2>
+      <span class="Erstellen-Sie-einfac">Erstellen Sie einfach ein Such-Inserat, wir benachrichtigen Sie sobald ein passendes Angebot eingestellt wurde.:</span>
+      <b-button class="w-100 Rectangle Rectangle-CTA ms-mt-24">Inserat erstellen</b-button>
+    </div>
   </b-row>
 </template>
 <script>
@@ -55,6 +60,18 @@ export default {
 }
 
 /* ZEPLIN Styles */
+.Erstellen-Sie-einfac {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-align: center;
+  color: var(--dark-grey);
+}
+
 .Search-Query {
   color: var(--dark-grey);
   text-align: start;
@@ -62,6 +79,17 @@ export default {
 
 .-OP-Masken-Sofort {
   font-weight: normal;
+  color: var(--dark-grey);
+}
+
+.Nichts-passendes-dab {
+  font-size: 18px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.33;
+  letter-spacing: normal;
+  text-align: center;
   color: var(--dark-grey);
 }
 </style>

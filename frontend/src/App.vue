@@ -89,12 +89,20 @@ body, html, #app {
   color: #42b983;
 }
 
+.ms-mt-64 {
+  margin-top: 64px;
+}
+
 .ms-mb-15 {
   margin-bottom: 15px;
 }
 
 .ms-mt-15 {
   margin-top: 15px;
+}
+
+.ms-mt-24 {
+  margin-top: 24px;
 }
 
 .ms-mt-46 {
