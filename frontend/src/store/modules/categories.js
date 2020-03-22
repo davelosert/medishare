@@ -1,27 +1,38 @@
+import categoriesApi from 'api/categories'
+
 // initial state
 const state = {
-  items: []
+  all: []
+}
+
+const getters = {
+  getCategory ({ state }, id) {
+    return state.all.find(category => category.id === id)
+  }
 }
 
 // actions
 const actions = {
-  set ({ commit }, items) {
-    commit('SET_ITEMS', items)
+  fetchAll ({ commit }) {
+    categoriesApi
+      .fetchCategories()
+      .then(categories => commit('SET_CATEGORIES', categories))
   },
   clear ({commit}) {
-    commit('SET_ITEMS', [])
+    commit('SET_CATEGORIES', [])
   }
 }
 
 // mutations
 const mutations = {
-  SET_ITEMS (state, { items }) {
-    state.items = items
+  SET_CATEGORIES (state, items) {
+    state.all = items
   }
 }
 
 export default {
   namespaced: true,
+  getters,
   state,
   actions,
   mutations

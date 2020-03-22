@@ -25,6 +25,7 @@
 </template>
 <script>
 import Category from './material_views/Category'
+import { mapState } from 'vuex'
 
 export default {
   name: 'categories',
@@ -33,29 +34,19 @@ export default {
   },
   data () {
     return {
-      selectedItems: [],
-      categories: [{
-        id: 1,
-        name: 'Masken'
-      },{
-        id: 2,
-        name: 'Kategorie 2'
-      },{
-        id: 3,
-        name: 'Kategorie 3'
-      },{
-        id: 4,
-        name: 'Kategorie 4'
-      },{
-        id: 5,
-        name: 'Kategorie 5'
-      }]
+      selectedItems: []
     }
+  },
+  created () {
+    this.$store.dispatch('categories/fetchAll')
   },
   computed: {
     nextButtonClass () {     
       return this.selectedItems.length > 0 ? ['Rectangle', 'Rectangle-CTA'] : 'Rectangle-Inactive'
-    }
+    },
+    ...mapState({
+      categories: state => state.categories.all
+    })
   },
   methods: {
     onSelection(categoryId) {
@@ -68,7 +59,8 @@ export default {
       }
     },
     next () {
-      this.$store.dispatch('categories/set', this.selectedItems)
+      this.$store.dispatch('cart/set', this.selectedItems)
+      this.$router.push({name: 'Search', params: { categoryId: this.selectedItems[0] }})
     }
   }
 }
