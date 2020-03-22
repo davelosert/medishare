@@ -1,20 +1,22 @@
 <template>
-  <div class="result-entity d-flex">
-    <div class="image-container d-flex flex-column justify-content-center">
-      <img src="../../../assets/material/illustration-op-mask.svg" alt="Op Mask" />
-      <span>{{ entity.itemCount }}</span>
-    </div>
-    <div class="info-container d-flex flex-column justify-content-center align-items-center">
-      <span class="giver-name">{{ entity.giverName }}</span>
-      <span class="distance">{{ distance }}</span>
-      <span :class="[{'giver-name': availability !== 0}]">{{ availability }}</span>
+  <div class="result-entity d-flex flex-column">
+    <div class="d-flex justify-content-start">
+      <div class="image-container d-flex flex-column justify-content-center">
+        <img src="../../../assets/material/illustration-op-mask.svg" alt="Op Mask" />
+        <span>{{ entity.itemCount }}</span>
+      </div>
+      <div class="info-container d-flex flex-column justify-content-center align-items-center">
+        <span class="giver-name">{{ entity.giverName }}</span>
+        <span class="distance -km-entfernt">{{ distance }}</span>
+        <span class="Sofort-verfgbar" :class="[{'green': availability !== 0}]">{{ availability }}</span>
+      </div>
     </div>
     <separator v-if="isAppend" :delimiter="'+'"></separator>
   </div>
 </template>
 
 <script>
-import Separator from '../Separator'
+import Separator from "../Separator";
 export default {
   name: "result-entity",
   components: {
@@ -30,16 +32,11 @@ export default {
       required: true
     }
   },
-  mounted () {
-    // eslint-disable-next-line no-debugger
-    debugger
-    console.log(this.entity)
-  },
   computed: {
-    distance() {
-      return this.entity.distance / 1000 + 'km entfernt';
+    distance () {
+      return this.entity.distance / 1000 + "km entfernt";
     },
-    availability() {
+    availability () {
       return this.entity.availability === 0
         ? "Sofort"
         : new Date(this.entity.availability).toLocaleDateString();
@@ -48,5 +45,33 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.info-container {
+  margin-left: 24px;
+}
+
+.-km-entfernt {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+  color: var(--dark-grey);
+}
+
+.Sofort-verfgbar {
+  font-family: Montserrat;
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.5;
+  letter-spacing: normal;
+}
+
+.green {
+  color: var(--green);
+}
 </style>

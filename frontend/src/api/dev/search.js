@@ -14,7 +14,7 @@ export default {
           availability: 0 // 0 for now else date
         }, {
           giverId: 2,
-          giverName: 'Tattoostudio Tintenrausch',
+          giverName: 'Cali Style Nagelstudio',
           itemCount: 70,
           distance: 4100, // distance in meters
           availability: 0 // 0 for now else date

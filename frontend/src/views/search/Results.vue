@@ -9,6 +9,7 @@
     </b-col>
     <separator :delimiter="'Angebote'"></separator>
     <result
+      class="ms-mt-15"
       v-for="result in results"
       :key="result.giverId"
       :item="result">
@@ -51,7 +52,6 @@ export default {
 <style scoped>
 #results {
   padding: 35px 15px 15px 15px;
-  height: calc(100% - 56px);
 }
 
 /* ZEPLIN Styles */

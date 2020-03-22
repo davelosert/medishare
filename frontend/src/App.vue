@@ -93,6 +93,14 @@ body, html, #app {
   margin-bottom: 15px;
 }
 
+.ms-mt-15 {
+  margin-top: 15px;
+}
+
+.ms-mt-46 {
+  margin-top: 46px;
+}
+
 .ms-card {
   border-radius: 8px;
   border-color: unset;

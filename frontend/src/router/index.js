@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Results from '../views/search/Results.vue'
 
 Vue.use(VueRouter)
 
@@ -24,7 +25,7 @@ const routes = [
   {
     path: '/search/results',
     name: 'Results',
-    component: () => import('../views/search/Results.vue'),
+    component: Results,
   }
 ]
 
