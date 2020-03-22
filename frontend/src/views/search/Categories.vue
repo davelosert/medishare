@@ -2,7 +2,7 @@
   <b-row id="categories" class="flex-column justify-content-between">
     <b-col>
       <p class="Welche-Materialien-s">
-        Welche Materialien suchen Sie?
+        Welche Materialien {{ text }}?
       </p>
     </b-col>
     <b-col>
@@ -17,7 +17,8 @@
     <b-col class="d-flex flex-column justify-content-end">
       <b-button class="w-100" 
       :disabled="selectedItem === undefined"
-      :class="nextButtonClass" 
+      :style="buttonTheme"
+      :class="buttonClass"
       @click="next">Weiter</b-button>
     </b-col>
   </b-row>
@@ -35,13 +36,25 @@ export default {
     this.$store.dispatch('categories/fetchAll')
   },
   computed: {
-    nextButtonClass () {     
-      return this.selectedItem !== undefined ? ['Rectangle', 'Rectangle-CTA'] : 'Rectangle-Inactive'
-    },
     ...mapState({
       categories: state => state.categories.all,
-      selectedItem: state => state.cart.selectedItem
-    })
+      selectedItem: state => state.cart.selectedItem,
+      buttonStyle: state => state.theme.activeStyle.buttons
+    }),
+    buttonTheme () {
+      return this.selectedItem === undefined ? {} : this.buttonStyle
+    },
+    buttonClass () {
+      return this.selectedItem === undefined ? 'Rectangle-Inactive' : 'Rectangle'
+    },
+    text () {
+      const activeIsDonor = this.$store.getters['theme/activeIsDonor']
+      if (activeIsDonor) {
+        return ' stellen Sie bereit'
+      } else {
+        return ' suchen Sie'
+      }
+    }
   },
   methods: {
     next () {

@@ -46,6 +46,11 @@ export default {
 </script>
 
 <style>
+:root {
+  --ms-orange: #fc5733 !important;
+  --ms-primary: #17a48b !important;
+}
+
 body, html, #app {
   height: 100%;
 }
@@ -122,7 +127,7 @@ body, html, #app {
 .Rectangle {
   height: 48px;
   border-radius: 8px !important;
-  border: solid 2px #17a48b !important;
+  color: #fff !important;
 }
 
 .Rectangle-Inactive {
@@ -130,17 +135,4 @@ body, html, #app {
   border-radius: 8px !important;
   border: 2px solid #6c757d !important;
 }
-
-.Rectangle-CTA {
-  height: 48px;
-  background-color: #17a48b !important;
-  color: #fff !important;
-}
-
-.Rectangle-Default {
-  height: 48px;
-  color: #17a48b !important;
-  background-color: #fff !important;
-}
-
 </style>

@@ -1,7 +1,7 @@
 <template>
   <b-row class="home flex-column justify-content-between" no-gutters>
     <b-col>
-      <img src="../assets/home/group-4.svg" class="Group-4">
+      <img src="../assets/home/group-4.svg" class="Group-4" />
     </b-col>
     <b-col class="welcome-text-container">
       <span class="Willkommen-Dr-Meie">Willkommen, {{ username }}</span>
@@ -11,14 +11,19 @@
       </p>
     </b-col>
     <b-col class="ms-mt-16 d-flex justify-content-end">
-      <b-row 
-        class="flex-column w-100 h-100 align-items-stretch justify-content-end"
-        no-gutters>
+      <b-row class="flex-column w-100 h-100 align-items-stretch justify-content-end" no-gutters>
         <b-col class="flex-grow-0">
-          <b-button class="w-100 Rectangle Rectangle-CTA" @click="navToMaterialSearch">Ich suche Materialien</b-button>
+          <b-button
+            class="w-100 Rectangle"
+            :style="receiverStyle.buttons"
+            @click="navToSearch('receiver')"
+          >Ich suche Materialien</b-button>
         </b-col>
         <b-col class="ms-mt-16 flex-grow-0">
-          <b-button class="w-100 Rectangle Rectangle-Default">Ich kann Materialien teilen</b-button>
+          <b-button 
+            :style="donorStyle.buttons"
+            @click="navToSearch('donor')"
+            class="w-100 Rectangle">Ich kann Materialien teilen</b-button>
         </b-col>
       </b-row>
     </b-col>
@@ -26,20 +31,30 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
-  name: 'Home',
+  name: "Home",
   data() {
     return {
-      username: 'Dr. Meier'
-    }
+      username: "Dr. Meier"
+    };
+  },
+  computed: {
+    ...mapState({
+      receiverStyle: state => state.theme.receiverStyle,
+      donorStyle: state => state.theme.donorStyle
+    })
   },
   methods: {
-    navToMaterialSearch () {
-      this.$router.push({name: 'Categories'})
+    navToSearch(type) {
+      const action = type === 'donor' ? 'setDonorStyle' : 'setReceiverStyle'
+      this.$store.dispatch('theme/' + action)
+      this.$router.push({ name: "Categories" });
     }
   }
-}
+};
 </script>
+navToSearch('receiverdonor) {
 
 <style scoped>
 .home {
