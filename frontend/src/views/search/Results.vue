@@ -17,7 +17,9 @@
     <div class="ms-mt-64 d-flex flex-column">
       <h2 class="Nichts-passendes-dab">Nichts passendes dabei?</h2>
       <span class="Erstellen-Sie-einfac">Erstellen Sie einfach ein Such-Inserat, wir benachrichtigen Sie sobald ein passendes Angebot eingestellt wurde.:</span>
-      <b-button class="w-100 Rectangle Rectangle-CTA ms-mt-24">Inserat erstellen</b-button>
+      <b-button 
+        class="w-100 Rectangle ms-mt-24"
+        :style="buttonStyle">Inserat erstellen</b-button>
     </div>
   </b-row>
 </template>
@@ -38,6 +40,7 @@ export default {
     ...mapState({
       results: state => state.searchResults.result,
       query: state => state.cart.query,
+      buttonStyle: state => state.theme.activeStyle.buttons
     }),
     queryItems() {
       const requestDate = new Date(this.query.date)
