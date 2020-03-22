@@ -29,11 +29,6 @@ export default {
     isActive() {
       return this.$store.state.cart.selectedItem === this.category.id;
     },
-    imageColorStyle() {
-      return {
-        '--color_fill': this.isActive ? this.$store.getters["theme/activeBG"] : "#4a5a68"
-      };
-    },
     borderColor() {
       return !this.isActive
         ? {}
