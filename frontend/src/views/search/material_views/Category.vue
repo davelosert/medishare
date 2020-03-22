@@ -1,13 +1,20 @@
 <template>
-  <b-col class="Material hover" :class="{'active': isActive}" sm="6" @click="onClick">
+  <b-col 
+    class="Material hover" 
+    :class="{'active': isActive}" 
+    :style="borderColor"
+    sm="6" 
+    @click="onClick">
     <b-row class="flex-column">
       <b-col class="category-container">
         <img src="../../../assets/material/mask.svg" class="Mask" alt="Maske" />
         <span class="Masken">{{ category.name }}</span>
       </b-col>
     </b-row>
-    <b-icon-check class="Oval checkmark-container" v-show="isActive">
-    </b-icon-check>
+    <b-icon-check 
+      :style="backgroundColor"
+      class="Oval checkmark-container"
+      v-show="isActive"></b-icon-check>
   </b-col>
 </template>
 
@@ -20,19 +27,22 @@ export default {
       type: Object
     }
   },
-  data() {
-    return {
-      isActive: false
-    };
+  computed: {
+    isActive () {
+      return this.$store.state.cart.selectedItem === this.category.id
+    },
+    borderColor () {
+      return !this.isActive ? {} 
+        : {borderColor: this.$store.getters['theme/activeBG']}
+    },
+    backgroundColor () {
+      return !this.isActive ? {} 
+        : {backgroundColor: this.$store.getters['theme/activeBG']}
+    }
   },
   methods: {
     onClick() {
-      this.isActive = !this.isActive;
-    }
-  },
-  watch: {
-    isActive() {
-      this.$emit("selected", this.category.id);
+      this.$store.dispatch("cart/set", this.category.id)
     }
   }
 };
@@ -44,15 +54,16 @@ export default {
 }
 
 .checkmark-container {
-  position: relative;
+  position: absolute;
   z-index: 2;
-  top: -9px;
+  bottom: -12px;
+  left: calc(50% - 12px);
   color: #fff;
 }
 
 .active {
   border-radius: 8px;
-  border: solid 3px #17a48b;
+  border: solid 3px;
 }
 
 /* zeplin styles */
@@ -80,7 +91,6 @@ export default {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background-color: #17a48b;
 }
 
 .Path-4 {

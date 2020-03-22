@@ -11,7 +11,10 @@
       :entity="result"
       :isAppend="item.items.length > 1 && index + 1 < item.items.length">
     </result-entity>
-    <b-button class="Rectangle Rectangle-CTA w-100 ms-mt-46">{{ buttonText }}</b-button>
+    <b-button 
+      class="Rectangle w-100 ms-mt-46"
+      :style="buttonStyle"
+      @click="$emit('contactDonors', item.items)">{{ buttonText }}</b-button>
   </b-col>
 </template>
 <script>
@@ -31,6 +34,9 @@ export default {
   computed: {
     buttonText () {
       return this.item.isCombination ? 'Kontaktanfrage an alle Anbieter' : 'Kontaktanfrage stellen'
+    },
+    buttonStyle () {
+      return this.$store.state.theme.activeStyle.buttons
     }
   }
 };

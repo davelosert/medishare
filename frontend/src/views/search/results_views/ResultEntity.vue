@@ -34,7 +34,7 @@ export default {
   },
   computed: {
     distance () {
-      return this.entity.distance / 1000 + "km entfernt";
+      return this.entity.distance / 1000 + " km entfernt";
     },
     availability () {
       return this.entity.availability === 0

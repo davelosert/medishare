@@ -25,6 +25,9 @@ const actions = {
 
 // mutations
 const mutations = {
+  SET (state, categoryId) {
+    state.selected = categoryId
+  },
   SET_CATEGORIES (state, items) {
     state.all = items
   }

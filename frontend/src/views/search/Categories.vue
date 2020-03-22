@@ -2,7 +2,7 @@
   <b-row id="categories" class="flex-column justify-content-between">
     <b-col>
       <p class="Welche-Materialien-s">
-        Welche Materialien suchen Sie?
+        Welche Materialien {{ text }}?
       </p>
     </b-col>
     <b-col>
@@ -10,15 +10,15 @@
         <category v-for="category in categories"
           :key="category.id"
           sm="6"
-          :category="category"
-          @selected="onSelection($event)">
+          :category="category">
         </category>
       </b-row>
     </b-col>
     <b-col class="d-flex flex-column justify-content-end">
       <b-button class="w-100" 
-      :disabled="selectedItems.length === 0"
-      :class="nextButtonClass" 
+      :disabled="selectedItem === undefined"
+      :style="buttonTheme"
+      :class="buttonClass"
       @click="next">Weiter</b-button>
     </b-col>
   </b-row>
@@ -32,35 +32,33 @@ export default {
   components: {
     'category': Category
   },
-  data () {
-    return {
-      selectedItems: []
-    }
-  },
   created () {
     this.$store.dispatch('categories/fetchAll')
   },
   computed: {
-    nextButtonClass () {     
-      return this.selectedItems.length > 0 ? ['Rectangle', 'Rectangle-CTA'] : 'Rectangle-Inactive'
-    },
     ...mapState({
-      categories: state => state.categories.all
-    })
+      categories: state => state.categories.all,
+      selectedItem: state => state.cart.selectedItem,
+      buttonStyle: state => state.theme.activeStyle.buttons
+    }),
+    buttonTheme () {
+      return this.selectedItem === undefined ? {} : this.buttonStyle
+    },
+    buttonClass () {
+      return this.selectedItem === undefined ? 'Rectangle-Inactive' : 'Rectangle'
+    },
+    text () {
+      const activeIsDonor = this.$store.getters['theme/activeIsDonor']
+      if (activeIsDonor) {
+        return ' stellen Sie bereit'
+      } else {
+        return ' suchen Sie'
+      }
+    }
   },
   methods: {
-    onSelection(categoryId) {
-      const idx = this.selectedItems.indexOf(categoryId)
-      
-      if (idx > -1) {
-        this.selectedItems.splice(idx, 1)
-      } else {
-        this.selectedItems.push(categoryId)
-      }
-    },
     next () {
-      this.$store.dispatch('cart/set', this.selectedItems)
-      this.$router.push({name: 'Search', params: { categoryId: this.selectedItems[0] }})
+      this.$router.push({name: 'Search', params: { categoryId: this.selectedItem }})
     }
   }
 }
