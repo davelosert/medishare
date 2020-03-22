@@ -18,8 +18,8 @@
         ></b-form-datepicker>
       </div>
     </b-col>
-    <b-col class="d-flex flex-column justify-content-end">
-      <b-button :style="buttonStyle" class="Rectangle w-100" @click="search">{{ buttonText }}</b-button>
+    <b-col class="d-flex flex-column justify-content-end align-items-center">
+      <b-button :style="buttonStyle" class="Rectangle" @click="search">{{ buttonText }}</b-button>
     </b-col>
     <b-modal id="modal" hide-header hide-footer centered>
       <h2 class="Anbieter-wurde-konta">Ihr Inserat wurde erstellt</h2>

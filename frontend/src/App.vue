@@ -131,12 +131,16 @@ html,
 /* ZEPLIN CSS */
 
 .Rectangle {
+  width: 100%;
+  max-width: 330px !important;
   height: 48px;
   border-radius: 8px !important;
   color: #fff !important;
 }
 
 .Rectangle-O {
+  width: 100%;
+  max-width: 330px !important;
   height: 48px;
   border-radius: 8px !important;
   color: var(--orange) !important;
@@ -146,6 +150,8 @@ html,
 
 .Rectangle-O-CTA {
   height: 48px;
+  width: 100%;
+  max-width: 330px !important;
   border-radius: 8px !important;
   color: #fff !important;
   border: solid 2px var(--ms-orange) !important;
@@ -153,6 +159,8 @@ html,
 }
 
 .Rectangle-Inactive {
+  width: 100%;
+  max-width: 330px !important;
   height: 48px;
   border-radius: 8px !important;
   border: 2px solid #6c757d !important;

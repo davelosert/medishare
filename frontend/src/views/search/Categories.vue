@@ -3,15 +3,9 @@
     <b-col cols="12">
       <p class="Welche-Materialien-s">Welche Materialien {{ text }}?</p>
     </b-col>
-    <!-- <b-col cols="12">
-      <b-row class="justify-content-center" no-gutters>
-        
-      </b-row>
-    </b-col>-->
     <category v-for="category in categories" :key="category.id" :category="category"></category>
-    <b-col class="d-flex flex-column justify-content-end mt-4" sm="12" xs="12">
-      <b-button
-        class="w-100"
+    <b-col cols="12" class="button-container">
+      <b-button 
         :disabled="selectedItem === undefined"
         :style="buttonTheme"
         :class="buttonClass"
@@ -68,7 +62,14 @@ export default {
 <style scoped>
 #categories {
   padding: 35px 0px 15px 0px;
-  height: calc(100%);
+  height: calc(100% - 56px);
+}
+
+.button-container {
+  display: flex;
+  margin-top: 16px !important;
+  align-items: flex-end;
+  justify-content: center;
 }
 
 /* ZEPLIN CSS */
