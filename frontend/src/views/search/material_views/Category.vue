@@ -3,10 +3,10 @@
     class="Material hover"
     :class="{'active': isActive}"
     :style="borderColor"
-    sm="6"
+    cols="6"
     @click="onClick"
   >
-    <b-row class="flex-column">
+    <b-row class="flex-column" no-gutters>
       <b-col class="category-container d-flex flex-column align-items-center">
         <img :src="require(`@/assets/material/${this.category.image}`)" class="Mask" alt="Maske" />
         <span class="Masken">{{ category.name }}</span>
@@ -71,10 +71,13 @@ export default {
 .Material {
   width: 160px;
   height: 160px;
+  max-width: 160px;
+  max-height: 160px;
   border-radius: 8px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   background-color: #ffffff;
   margin-top: 10px;
+  margin-left: 10px;
 }
 
 .Mask {

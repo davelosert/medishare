@@ -1,16 +1,16 @@
 <template>
-  <b-row class="home flex-column justify-content-between" no-gutters>
-    <b-col>
+  <b-row class="home justify-content-center" no-gutters>
+    <b-col sm="12">
       <img src="../assets/home/group-4.svg" class="Group-4" />
     </b-col>
-    <b-col class="welcome-text-container">
+    <b-col class="welcome-text-container" sm="12">
       <span class="Willkommen-Dr-Meie">Willkommen, {{ username }}</span>
       <p class="Fehlt-es-Ihnen-an-Ar ms-mt-16">
         Fehlt es Ihnen an Arbeitsmaterialien, oder haben Sie etwas auf Vorrat,
         dass Sie gerne zur Verfügung stellen möchten?
       </p>
     </b-col>
-    <b-col class="ms-mt-16 d-flex justify-content-end">
+    <b-col class="ms-mt-16 d-flex justify-content-end" sm="12">
       <b-row class="flex-column w-100 h-100 align-items-stretch justify-content-end" no-gutters>
         <b-col class="flex-grow-0">
           <b-button
