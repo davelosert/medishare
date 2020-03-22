@@ -19,8 +19,16 @@
       </div>
     </b-col>
     <b-col class="d-flex flex-column justify-content-end">
-      <b-button :style="buttonStyle" class="Rectangle w-100" @click="search">Suchen</b-button>
+      <b-button :style="buttonStyle" class="Rectangle w-100" @click="search">{{ buttonText }}</b-button>
     </b-col>
+    <b-modal id="modal" hide-header hide-footer centered>
+      <h2 class="Anbieter-wurde-konta">Ihr Inserat wurde erstellt</h2>
+      <p
+        class="Wir-haben-den-Anbiet ms-mt-15"
+      >Sollte jemand nach Ihren Materialien suchen, werden wir die Kontaktaufnahme herstellen</p>
+      <b-button @click="back" class="Rectangle-O-CTA w-100 ms-mt-24">Weitere Materialien anbieten</b-button>
+      <b-button @click="goHome" class="Rectangle-O w-100 ms-mt-15">Zurück zur Startseite</b-button>
+    </b-modal>
   </b-row>
 </template>
 
@@ -53,13 +61,14 @@ export default {
     buttonStyle() {
       return this.$store.state.theme.activeStyle.buttons;
     },
+    activeIsDonor() {
+      return this.$store.getters["theme/activeIsDonor"];
+    },
     text() {
-      const activeIsDonor = this.$store.getters["theme/activeIsDonor"];
-      if (activeIsDonor) {
-        return "bereitstellen könnten";
-      } else {
-        return "benötigen";
-      }
+      return this.activeIsDonor ? "bereitstellen könnten" : "benötigen";
+    },
+    buttonText() {
+      return this.activeIsDonor ? "Inserieren" : "Suchen";
     }
   },
   methods: {
@@ -67,12 +76,24 @@ export default {
       this.dateValue = new Date();
     },
     search() {
+      if (this.activeIsDonor) {
+        this.$bvModal.show("modal");
+        return;
+      }
       this.$store.dispatch("cart/setQuery", {
         date: this.dateValue,
         count: this.countValue,
         category: this.category
       });
       this.$router.push({ name: "Results" });
+    },
+    back() {
+      this.$bvModal.hide("modal");
+      this.$router.go(-1);
+    },
+    goHome() {
+      this.$bvModal.hide("modal");
+      this.$router.replace({ name: "Home" });
     }
   }
 };
