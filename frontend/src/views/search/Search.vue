@@ -58,7 +58,7 @@
         this.$store.dispatch('cart/setQuery', {
           date: this.dateValue,
           count: this.countValue,
-          categoryName: this.category.name
+          category: this.category
         })
         this.$router.push({name: 'Results'})
       }

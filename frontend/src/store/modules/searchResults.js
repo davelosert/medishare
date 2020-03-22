@@ -2,7 +2,7 @@ import searchApi from 'api/search'
 
 // initial state
 const state = {
-  response: {}
+  result: []
 }
 
 const getters = {
@@ -13,9 +13,9 @@ const getters = {
 
 // actions
 const actions = {
-  search ({ commit }, options) {
+  search ({ commit, rootState }) {
     searchApi
-      .search(options)
+      .search(rootState.cart.query)
       .then(resp => commit('SET_RESPONSE', resp.data))
   },
   clear ({commit}) {
@@ -25,8 +25,8 @@ const actions = {
 
 // mutations
 const mutations = {
-  SET_RESPONSE (state, items) {
-    state.result = items
+  SET_RESPONSE (state, result) {
+    state.result = result
   }
 }
 

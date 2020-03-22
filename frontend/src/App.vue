@@ -89,6 +89,18 @@ body, html, #app {
   color: #42b983;
 }
 
+.ms-mb-15 {
+  margin-bottom: 15px;
+}
+
+.ms-card {
+  border-radius: 8px;
+  border-color: unset;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  padding: 16px; 
+}
+
 /* ZEPLIN CSS */
 
 .Rectangle {
