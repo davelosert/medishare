@@ -12,13 +12,14 @@
           no-flip
           dropup
           today-button
+          :min="new Date()"
           v-model="dateValue"
           class="button-group"
         ></b-form-datepicker>
       </div>
     </b-col>
     <b-col class="d-flex flex-column justify-content-end">
-      <b-button class="Rectangle-CTA w-100" @click="search">Suchen</b-button>
+      <b-button class="Rectangle Rectangle-CTA w-100" @click="search">Suchen</b-button>
     </b-col>
   </b-row>
 </template>
