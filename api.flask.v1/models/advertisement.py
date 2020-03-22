@@ -1,6 +1,8 @@
 from db import db
 from datetime import datetime
-    
+from cerberus import Validator
+from datetime import datetime
+
 class Advertisement(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     topic = db.Column(db.String(100), nullable=False)
@@ -13,3 +15,37 @@ class Advertisement(db.Model):
 
     status_id = db.Column(db.Integer, db.ForeignKey('status.id'))
     status = db.relationship("Status")
+
+    @property
+    def serialize(self):    
+        return {
+            'id': self.id,
+            'topic': self.topic,
+            'content': self.content,
+            'quantity': self.quantity,
+            'desiredAt': self.desiredAt,
+            'category': self.category.serialize,
+            'status': self.status.serialize
+            }
+    
+    @staticmethod
+    def fromJson(data):
+        import logging, sys
+        logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+        
+
+        # input_shema = Validator({
+        #     'topic': {'type': 'string'},
+        #     'content': {'type': 'string'},
+        #     'quantity': {'required': False, 'type': 'integer'},
+        #     'desiredAt': {'required': False, 'type': 'datetime'},
+        #     'category': {'required': False, 'type': 'dict', 'schema': {'id': {'type': 'integer'}}},
+        #     'status': {'required': False, 'type': 'dict', 'schema': {'id': {'type': 'integer'}}}
+        # })
+        # logging.debug(data)
+        # if not input_shema.validate(data):
+        #     logging.debug(input_shema._errors)
+        #     return None
+
+        return Advertisement(topic=data['topic'], content=data['content'], quantity=data['quantity'], 
+                                desiredAt=datetime.strptime(data['desiredAt'], '%m-%d-%Y').date(), category_id=data['category']['id'], status_id=data['status']['id'])
