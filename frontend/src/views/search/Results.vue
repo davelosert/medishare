@@ -28,12 +28,8 @@
       <p
         class="Wir-haben-den-Anbiet ms-mt-15"
       >Wir haben den Anbieter benachrichtigt, dass bei ihnen Bedarf besteht. Sie erhalten in Kürze Feedback mit weiteren Informationen.</p>
-      <b-button 
-        @click="onModalClose"
-        class="Rectangle-O-CTA w-100 ms-mt-24">Schließen</b-button>
-      <b-button
-        @click="onLookForMore"
-        class="Rectangle-O w-100 ms-mt-15">Weitere Materialien suchen</b-button>
+      <b-button @click="onModalCTAClick" class="Rectangle-O-CTA w-100 ms-mt-24">Schließen</b-button>
+      <b-button @click="onModalDefaulClick" class="Rectangle-O w-100 ms-mt-15">Weitere Materialien suchen</b-button>
     </b-modal>
   </b-row>
 </template>
@@ -41,6 +37,12 @@
 import { mapState } from 'vuex';
 import Result from './results_views/Result';
 import Separator from './Separator';
+
+const modalType = {
+  CONTACT_DONORS: 'CONTACT_DONORS',
+  NO_ITEMS_FOUND: 'NO_ITEMS_FOUND',
+  ADVERTISEMENT_CREATED: 'ADVERTISEMENT_CREATED'
+}
 
 export default {
   name: 'results',
@@ -50,6 +52,11 @@ export default {
   },
   created() {
     this.$store.dispatch('searchResults/search');
+  },
+  data () {
+    return {
+      modalType: undefined
+    }
   },
   computed: {
     ...mapState({
@@ -73,16 +80,26 @@ export default {
     }
   },
   methods: {
+    onModalCTAClick() {
+      this.$bvModal.hide('modal')
+      if (this.modalType === modalType.CONTACT_DONORS) {
+        this.onModalClose()
+      }
+    },
+    onModalDefaulClick() {
+      if (this.modalType === modalType.CONTACT_DONORS) {
+        this.onLookForMore()
+      }
+    },
     contactDonors(donorIds) {
+      this.modalType = modalType.CONTACT_DONORS
       console.log('Will contact ' + JSON.stringify(donorIds));
       this.$bvModal.show('modal');
     },
     onModalClose() {
-      this.$bvModal.hide('modal')
       this.$router.replace({name: 'Home'})
     },
     onLookForMore() {
-      this.$bvModal.hide('modal')
       this.$router.go(-2)
     }
   }

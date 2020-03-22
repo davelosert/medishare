@@ -2,7 +2,7 @@
   <div class="result-entity d-flex flex-column">
     <div class="d-flex justify-content-start">
       <div class="image-container d-flex flex-column justify-content-center">
-        <img src="../../../assets/material/illustration-op-mask.svg" alt="Op Mask" />
+        <img :src="require(`@/assets/material/${this.category.image}`)" alt="Op Mask" />
         <span>{{ entity.itemCount }}</span>
       </div>
       <div class="info-container d-flex flex-column justify-content-center align-items-center">
@@ -40,6 +40,9 @@ export default {
       return this.entity.availability === 0
         ? "Sofort"
         : new Date(this.entity.availability).toLocaleDateString();
+    },
+    category () {
+      return this.$store.state.cart.query.category
     }
   }
 };

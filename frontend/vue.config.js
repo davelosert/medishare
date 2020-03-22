@@ -8,7 +8,8 @@ module.exports = {
   configureWebpack: {
     resolve: {
       alias: {
-        api: path.resolve(__dirname, `src/api/${envPath}`)
+        api: path.resolve(__dirname, `src/api/${envPath}`),
+        '@': path.resolve(__dirname, 'src')
       }
     }
   }
