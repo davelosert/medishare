@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 services:
   medishare-nginx:
     build:
@@ -9,14 +9,21 @@ services:
     volumes:
       - ./frontend/dist:/var/www/medishare.david-losert.com
   medishare-mysql:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+    image: mysql
+    volumes:
+      - mysql-medishare-data:/var/lib/mysql
+      - ./db/:/docker-entrypoint-initdb.d
     environment:
       MYSQL_ROOT_PASSWORD: test123
+      MYSQL_DATABASE: medishare
+      MYSQL_USER: medishare
+      MYSQL_PASSWORD: MediShare
   medishare-backend:
     build:
       context: ./api.flask.v1
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
+volumes:
+  mysql-medishare-data:
+    name: medishare-data
