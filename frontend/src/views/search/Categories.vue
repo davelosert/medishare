@@ -67,7 +67,7 @@ export default {
 </script>
 <style scoped>
 #categories {
-  padding: 35px 0px 35px 0px;
+  padding: 35px 0px 15px 0px;
   height: calc(100%);
 }
 
