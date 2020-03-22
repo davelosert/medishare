@@ -5,7 +5,7 @@ export default {
       name: 'Masken'
     },{
       id: 2,
-      name: 'Kategorie 2'
+      name: 'FFP2 / FFP3 Schutzmasken'
     },{
       id: 3,
       name: 'Kategorie 3'
