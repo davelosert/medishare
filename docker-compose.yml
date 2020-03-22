@@ -1,0 +1,22 @@
+version: '3'
+services:
+  nginx-medishare:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./frontend/dist:/var/www/medishare.david-losert.com
+  # medishare-mysql:
+  #   build:
+  #     context: ./backend
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: test123
+  medishare-backend:
+    build:
+      context: ./api.flask.v1
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
