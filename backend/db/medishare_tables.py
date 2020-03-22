@@ -14,6 +14,7 @@ TABLES['medical_practice'] = (
     "CREATE TABLE `medical_practice` ("
     "  `medical_practice_id` int(11) NOT NULL AUTO_INCREMENT,"
     "  `lanr` char(9) NOT NULL,"
+    "  `phone_number` varchar(50) NOT NULL,"
     "  `location_id` int(11) NOT NULL,"
     "  PRIMARY KEY (`medical_practice_id`)"
     ") ENGINE=InnoDB")
@@ -39,6 +40,7 @@ TABLES['advertisement_category'] = (
     "CREATE TABLE `advertisement_category` ("
     "  `advertisement_category_id` int(11) NOT NULL AUTO_INCREMENT,"
     "  `advertisement_category_name` varchar(5) NOT NULL,"
+    "  `advertisement_category_unit` varchar(5) NOT NULL,"
     "  PRIMARY KEY (`advertisement_category_id`)"
     ") ENGINE=InnoDB")
 TABLES['advertisement_status'] = (
