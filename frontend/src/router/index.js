@@ -13,10 +13,13 @@ const routes = [
   {
     path: '/search/category',
     name: 'Categories',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/search/Categories.vue')
+    component: () => import('../views/search/Categories.vue')
+  },
+  {
+    path: '/search/category/:categoryId',
+    name: 'Search',
+    component: () => import('../views/search/Search.vue'),
+    props: true
   }
 ]
 
